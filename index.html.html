@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS — Operations Command Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#04040e;
+  --surface:#080818;
+  --surface2:#0e0e22;
+  --border:rgba(255,255,255,0.05);
+  --border2:rgba(255,255,255,0.10);
+  --accent:#6c63ff;
+  --accent2:#00e5b0;
+  --accent3:#f0a030;
+  --danger:#f05060;
+  --text:#eaeaf8;
+  --muted:#52527a;
+  --muted2:#2e2e52;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;line-height:1.5}
+
+/* ── NOISE OVERLAY ── */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:0.4
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  height:64px;display:flex;align-items:center;
+  padding:0 48px;gap:32px;
+  background:rgba(4,4,14,0.80);
+  backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  z-index:100
+}
+.nav-logo{
+  font-size:18px;font-weight:900;letter-spacing:6px;
+  color:var(--text);margin-right:auto
+}
+.nav-logo span{color:var(--accent2)}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{
+  font-size:11px;font-family:'Space Mono',monospace;
+  letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  transition:color 0.2s
+}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{
+  font-size:11px;font-family:'Space Mono',monospace;font-weight:700;
+  padding:9px 20px;border-radius:6px;
+  background:linear-gradient(135deg,#6c63ff,#00e5b0);
+  color:#fff;
+  border:none;cursor:pointer;text-decoration:none;
+  transition:all 0.25s;letter-spacing:1px;
+  box-shadow:0 0 0 0 rgba(108,99,255,0)
+}
+.nav-cta:hover{opacity:0.88;transform:translateY(-1px);box-shadow:0 6px 24px rgba(108,99,255,0.35)}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:100px 40px 80px;position:relative;overflow:hidden
+}
+.hero-grid-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(91,82,240,0.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(91,82,240,0.05) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%)
+}
+.hero-glow{
+  position:absolute;top:20%;left:50%;transform:translateX(-50%);
+  width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(91,82,240,0.12) 0%,transparent 70%);
+  pointer-events:none
+}
+.hero-glow2{
+  position:absolute;bottom:0;right:-100px;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,212,160,0.07) 0%,transparent 70%);
+  pointer-events:none
+}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;position:relative;z-index:1}
+.hero-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:10px;font-family:'Space Mono',monospace;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--accent2);
+  border:1px solid rgba(0,212,160,0.2);
+  background:rgba(0,212,160,0.06);
+  padding:5px 14px;border-radius:20px;margin-bottom:28px
+}
+.hero-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent2);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.hero-h1{
+  font-size:clamp(52px,9vw,110px);
+  font-weight:900;line-height:0.92;
+  letter-spacing:-2px;
+  margin-bottom:28px
+}
+.hero-h1 .line1{display:block;color:var(--text)}
+.hero-h1 .line2{
+  display:block;
+  background:linear-gradient(135deg,#6c63ff 0%,#00e5b0 60%,#a0f0e0 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.hero-sub{
+  font-size:16px;color:var(--muted);max-width:540px;
+  line-height:1.7;margin-bottom:44px;font-weight:400
+}
+.hero-sub strong{color:var(--text);font-weight:600}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.btn-primary{
+  font-size:12px;font-family:'Space Mono',monospace;font-weight:700;
+  padding:14px 30px;border-radius:7px;
+  background:linear-gradient(135deg,#6c63ff,#00e5b0);
+  color:#fff;border:none;cursor:pointer;
+  letter-spacing:1px;transition:all 0.25s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  box-shadow:0 4px 20px rgba(108,99,255,0.2)
+}
+.btn-primary:hover{opacity:0.9;transform:translateY(-2px);box-shadow:0 12px 40px rgba(108,99,255,0.35)}
+.btn-ghost{
+  font-size:12px;font-family:'Space Mono',monospace;font-weight:700;
+  padding:14px 28px;border-radius:6px;
+  background:transparent;color:var(--text);
+  border:1px solid var(--border2);cursor:pointer;
+  letter-spacing:1px;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px
+}
+.btn-ghost:hover{border-color:rgba(91,82,240,0.4);background:rgba(91,82,240,0.06);transform:translateY(-2px)}
+.hero-stats{
+  display:flex;gap:40px;margin-top:64px;padding-top:40px;
+  border-top:1px solid var(--border);flex-wrap:wrap
+}
+.hero-stat{}
+.hero-stat .n{
+  font-size:36px;font-weight:900;font-family:'Space Mono',monospace;
+  color:var(--text);line-height:1
+}
+.hero-stat .n span{color:var(--accent2)}
+.hero-stat .l{font-size:10px;color:var(--muted);margin-top:6px;letter-spacing:1px;font-family:'Space Mono',monospace;text-transform:uppercase}
+
+/* ── DASHBOARD PREVIEW ── */
+#preview{padding:80px 40px;position:relative;overflow:hidden}
+.preview-inner{max-width:1200px;margin:0 auto}
+.section-label{
+  font-size:10px;font-family:'Space Mono',monospace;letter-spacing:3px;
+  text-transform:uppercase;color:var(--accent);margin-bottom:16px
+}
+.section-h2{font-size:clamp(28px,4vw,48px);font-weight:800;line-height:1.1;margin-bottom:16px}
+.section-sub{font-size:15px;color:var(--muted);max-width:500px;line-height:1.7;margin-bottom:48px}
+
+/* Fake dashboard mockup */
+.dash-mock{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;
+  box-shadow:0 40px 100px rgba(0,0,0,0.6),0 0 0 1px rgba(91,82,240,0.1);
+  position:relative
+}
+.dash-mock::before{
+  content:'';position:absolute;top:-1px;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,#6c63ff,#00e5b0,transparent)
+}
+.dm-topbar{
+  height:46px;background:var(--surface);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 16px;gap:10px
+}
+.dm-logo{font-size:13px;font-weight:900;letter-spacing:5px;color:var(--text)}
+.dm-logo span{color:var(--accent2)}
+.dm-pill{font-size:8px;font-family:'Space Mono',monospace;padding:2px 8px;border-radius:20px;background:rgba(91,82,240,0.15);color:#8880ff;border:1px solid rgba(91,82,240,0.25)}
+.dm-gap{flex:1}
+.dm-time{font-size:10px;font-family:'Space Mono',monospace;color:var(--muted)}
+.dm-btn{font-size:9px;font-family:'Space Mono',monospace;padding:4px 10px;border-radius:4px;background:rgba(91,82,240,0.1);color:#8880ff;border:1px solid rgba(91,82,240,0.25);cursor:default}
+.dm-body{display:flex}
+.dm-sidebar{
+  width:180px;background:var(--surface);border-right:1px solid var(--border);
+  padding:12px 8px;flex-shrink:0;display:flex;flex-direction:column;gap:2px
+}
+.dm-nav-section{font-size:7px;font-family:'Space Mono',monospace;color:var(--muted2);letter-spacing:2px;padding:8px 8px 4px;text-transform:uppercase}
+.dm-nav{
+  display:flex;align-items:center;gap:7px;padding:6px 9px;border-radius:5px;
+  font-size:10px;color:var(--muted);cursor:default;border:1px solid transparent
+}
+.dm-nav.active{background:rgba(91,82,240,0.1);color:#8880ff;border-color:rgba(91,82,240,0.2)}
+.dm-nav .dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+.dm-nav .dm-badge{margin-left:auto;font-size:7px;font-family:'Space Mono',monospace;background:rgba(240,80,96,0.15);color:#f08090;padding:1px 5px;border-radius:20px}
+.dm-content{flex:1;padding:16px;min-width:0}
+.dm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.dm-stat{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px}
+.dm-stat .sv{font-size:20px;font-weight:800;font-family:'Space Mono',monospace}
+.dm-stat .sl{font-size:8px;color:var(--muted);margin-top:4px;font-family:'Space Mono',monospace}
+.dm-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.dm-card-head{padding:10px 14px;border-bottom:1px solid var(--border);font-size:11px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.dm-card-head span{font-size:8px;font-family:'Space Mono',monospace;color:var(--muted)}
+.dm-row{display:flex;align-items:center;gap:10px;padding:8px 14px;border-bottom:1px solid rgba(255,255,255,0.03);font-size:10px;font-family:'Space Mono',monospace}
+.dm-row:last-child{border-bottom:none}
+.dm-row .dr-id{color:var(--muted);min-width:36px}
+.dm-row .dr-task{flex:1;color:var(--text)}
+.dm-row .dr-badge{font-size:7px;padding:1px 6px;border-radius:20px;font-weight:700;border:1px solid}
+.urgent{background:rgba(240,80,96,0.1);color:#f08090;border-color:rgba(240,80,96,0.2)}
+.high{background:rgba(240,160,48,0.1);color:#f0a030;border-color:rgba(240,160,48,0.2)}
+.medium{background:rgba(0,212,160,0.1);color:#00d4a0;border-color:rgba(0,212,160,0.2)}
+.dr-prog{display:flex;align-items:center;gap:4px}
+.dr-track{width:36px;height:3px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden}
+.dr-fill{height:100%;border-radius:2px;background:var(--accent)}
+.dr-pct{font-size:8px;color:var(--muted)}
+
+/* ── FEATURES ── */
+#features{padding:100px 40px;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.features-inner{max-width:1200px;margin:0 auto}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:8px}
+.feat{
+  padding:36px;border-radius:16px;border:1px solid var(--border);
+  background:var(--bg);transition:all 0.35s;position:relative;overflow:hidden
+}
+.feat::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--feat-color,var(--accent)),transparent);
+  opacity:0;transition:opacity 0.3s
+}
+.feat:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.feat:hover::before{opacity:1}
+.feat-icon{
+  width:44px;height:44px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;font-size:20px;
+  border:1px solid var(--border)
+}
+.feat h3{font-size:17px;font-weight:700;margin-bottom:10px}
+.feat p{font-size:13px;color:var(--muted);line-height:1.7}
+.feat-tag{
+  display:inline-block;margin-top:16px;
+  font-size:9px;font-family:'Space Mono',monospace;letter-spacing:1px;
+  padding:3px 10px;border-radius:20px;border:1px solid;font-weight:700
+}
+
+/* ── MODULE BREAKDOWN ── */
+#modules{padding:100px 40px}
+.modules-inner{max-width:1200px;margin:0 auto}
+.modules-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:48px}
+.mod{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:28px;display:flex;gap:18px;align-items:flex-start;
+  transition:all 0.25s;cursor:default
+}
+.mod:hover{border-color:var(--border2);background:var(--surface2)}
+.mod-num{
+  font-size:11px;font-family:'Space Mono',monospace;color:var(--muted);
+  min-width:28px;padding-top:2px
+}
+.mod-body h4{font-size:14px;font-weight:700;margin-bottom:6px}
+.mod-body p{font-size:12px;color:var(--muted);line-height:1.6}
+.mod-body .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.mod-tag{
+  font-size:8px;font-family:'Space Mono',monospace;letter-spacing:0.5px;
+  padding:2px 8px;border-radius:3px;border:1px solid var(--border);color:var(--muted)
+}
+
+/* ── HOW IT WORKS ── */
+#how{padding:100px 40px;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.how-inner{max-width:1200px;margin:0 auto}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:48px;position:relative}
+.steps::before{
+  content:'';position:absolute;top:24px;left:12%;right:12%;height:1px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0.3
+}
+.step{padding:0 16px;text-align:center;position:relative}
+.step-num{
+  width:48px;height:48px;border-radius:50%;
+  background:var(--surface2);border:1px solid rgba(91,82,240,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--accent);
+  margin:0 auto 20px;position:relative;z-index:1
+}
+.step h4{font-size:14px;font-weight:700;margin-bottom:8px}
+.step p{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* ── ROLES ── */
+#roles{padding:100px 40px}
+.roles-inner{max-width:1200px;margin:0 auto}
+.roles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.roles-grid .role:nth-child(4){grid-column:1/2}
+.roles-grid .role:nth-child(5){grid-column:2/3}
+.role{
+  border:1px solid var(--border);border-radius:16px;padding:32px;
+  background:var(--surface);transition:all 0.35s
+}
+.role:hover{border-color:rgba(91,82,240,0.3);transform:translateY(-3px)}
+.role-icon{font-size:28px;margin-bottom:16px}
+.role h3{font-size:16px;font-weight:700;margin-bottom:10px}
+.role ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.role ul li{font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
+.role ul li::before{content:'→';color:var(--accent2);flex-shrink:0;font-family:'Space Mono',monospace;font-size:11px;margin-top:1px}
+
+/* ── CTA ── */
+#cta{
+  padding:120px 40px;text-align:center;position:relative;overflow:hidden
+}
+.cta-glow{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:600px;height:400px;
+  background:radial-gradient(ellipse,rgba(91,82,240,0.15) 0%,transparent 70%);
+  pointer-events:none
+}
+#cta h2{font-size:clamp(36px,5vw,64px);font-weight:900;margin-bottom:20px;position:relative}
+#cta p{font-size:16px;color:var(--muted);margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto;position:relative}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
+
+/* ── FOOTER ── */
+footer{
+  padding:40px;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px
+}
+.footer-logo{font-size:16px;font-weight:900;letter-spacing:5px;color:var(--muted)}
+.footer-logo span{color:var(--accent2)}
+footer p{font-size:10px;font-family:'Space Mono',monospace;color:var(--muted2)}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:10px;font-family:'Space Mono',monospace;color:var(--muted2);text-decoration:none;letter-spacing:1px}
+.footer-links a:hover{color:var(--muted)}
+
+/* ── SCROLL ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal-d1{transition-delay:0.1s}
+.reveal-d2{transition-delay:0.2s}
+.reveal-d3{transition-delay:0.3s}
+.reveal-d4{transition-delay:0.4s}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--muted2);border-radius:4px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:0 20px;gap:16px}
+  .nav-links{display:none}
+  #hero{padding:100px 24px 60px}
+  .hero-h1{letter-spacing:-1px}
+  .hero-stats{gap:24px}
+  #preview{padding:60px 24px}
+  #features{padding:60px 24px}
+  .features-grid{grid-template-columns:1fr}
+  #modules{padding:60px 24px}
+  .modules-grid{grid-template-columns:1fr}
+  #how{padding:60px 24px}
+  .steps{grid-template-columns:repeat(2,1fr);gap:32px}
+  .steps::before{display:none}
+  #roles{padding:60px 24px}
+  .roles-grid{grid-template-columns:1fr !important}
+  .roles-grid .role:nth-child(4),.roles-grid .role:nth-child(5){grid-column:auto}
+  #cta{padding:80px 24px}
+  footer{padding:30px 24px;flex-direction:column;gap:12px;text-align:center}
+  .dm-sidebar{display:none}
+  .dm-stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  nav{padding:0 16px}
+  .nav-logo{font-size:15px;letter-spacing:4px}
+  .nav-cta{font-size:10px;padding:7px 14px}
+  #hero{padding:90px 16px 48px}
+  .hero-label{font-size:9px;padding:4px 12px}
+  .hero-h1{font-size:clamp(42px,12vw,64px);letter-spacing:-1.5px;margin-bottom:20px}
+  .hero-sub{font-size:14px;margin-bottom:32px}
+  .hero-btns{flex-direction:column;align-items:stretch}
+  .btn-primary,.btn-ghost{justify-content:center;padding:14px 20px;font-size:11px}
+  .hero-stats{flex-direction:row;flex-wrap:wrap;gap:0;margin-top:40px;padding-top:28px}
+  .hero-stat{width:50%;padding:12px 0}
+  .hero-stat .n{font-size:28px}
+  #preview{padding:48px 16px}
+  .section-h2{font-size:clamp(24px,7vw,36px)}
+  #features{padding:48px 16px}
+  .feat{padding:24px}
+  .feat h3{font-size:15px}
+  .feat p{font-size:12px}
+  #modules{padding:48px 16px}
+  .mod{padding:20px;gap:14px}
+  .mod-body h4{font-size:13px}
+  .mod-body p{font-size:11px}
+  #how{padding:48px 16px}
+  .steps{grid-template-columns:1fr;gap:24px}
+  .step{text-align:left;display:flex;flex-direction:column;align-items:flex-start}
+  .step-num{margin:0 0 14px 0}
+  #roles{padding:48px 16px}
+  .role{padding:24px}
+  .role h3{font-size:15px}
+  .role ul li{font-size:11px}
+  #cta{padding:60px 16px}
+  #cta h2{font-size:clamp(28px,8vw,42px)}
+  #cta p{font-size:14px}
+  .cta-btns{flex-direction:column;align-items:stretch}
+  footer{padding:24px 16px;font-size:10px}
+  .footer-links{justify-content:center}
+  .dm-stats{grid-template-columns:1fr 1fr}
+  .dm-stat .sv{font-size:16px}
+  .dash-mock{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">NEX<span>US</span></div>
+  <div class="nav-links">
+    <a href="#preview">Overview</a>
+    <a href="#features">Features</a>
+    <a href="#modules">Modules</a>
+    <a href="#roles">Who It's For</a>
+  </div>
+  <a href="#cta" class="nav-cta">Get Access</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div class="hero-label">
+      <span></span>
+      Operations Command Platform
+    </div>
+    <h1 class="hero-h1">
+      <span class="line1">Operations,</span>
+      <span class="line2">Unified.</span>
+    </h1>
+    <p class="hero-sub">
+      NEXUS is a <strong>full-stack operations command platform</strong> — built to coordinate teams, track tasks, manage partnerships, and surface real-time KPIs in one seamless interface.
+    </p>
+    <div class="hero-btns">
+      <a href="#preview" class="btn-primary">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>
+        See It In Action
+      </a>
+      <a href="#features" class="btn-ghost">Explore Features →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="n">10<span>+</span></div>
+        <div class="l">Modules Built</div>
+      </div>
+      <div class="hero-stat">
+        <div class="n">5<span>x</span></div>
+        <div class="l">Role Types</div>
+      </div>
+      <div class="hero-stat">
+        <div class="n">84<span>%</span></div>
+        <div class="l">Avg Completion</div>
+      </div>
+      <div class="hero-stat">
+        <div class="n">0<span>ms</span></div>
+        <div class="l">Load Time</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIEW -->
+<section id="preview">
+  <div class="preview-inner">
+    <div class="reveal">
+      <div class="section-label">Platform Preview</div>
+      <h2 class="section-h2">The Ops Console</h2>
+      <p class="section-sub">Everything your team needs — tasks, KPIs, meetings, follow-ups, and EOD reports — in one command center built for speed.</p>
+    </div>
+
+    <!-- Dashboard Mockup -->
+    <div class="dash-mock reveal">
+      <div class="dm-topbar">
+        <div class="dm-logo">NEX<span>US</span></div>
+        <div class="dm-gap"></div>
+        <div class="dm-time">14:32 · Mon 08 Jun</div>
+        &nbsp;&nbsp;
+        <div class="dm-btn">↻ Sync</div>
+      </div>
+      <div class="dm-body">
+        <div class="dm-sidebar">
+          <div class="dm-nav-section">Overview</div>
+          <div class="dm-nav active"><span class="dot"></span> KPI Dashboard</div>
+          <div class="dm-nav"><span class="dot"></span> Master Tasks <span class="dm-badge">4</span></div>
+          <div class="dm-nav"><span class="dot"></span> Field Intel</div>
+          <div class="dm-nav"><span class="dot"></span> Partnerships</div>
+          <div class="dm-nav"><span class="dot"></span> Org Database</div>
+          <div class="dm-nav"><span class="dot"></span> Marketing</div>
+          <div class="dm-nav-section">Ops</div>
+          <div class="dm-nav"><span class="dot"></span> EOD Report</div>
+          <div class="dm-nav"><span class="dot"></span> Meetings <span class="dm-badge">2</span></div>
+          <div class="dm-nav"><span class="dot"></span> Follow-Ups <span class="dm-badge">3</span></div>
+          <div class="dm-nav"><span class="dot"></span> Failsafe Alerts</div>
+        </div>
+        <div class="dm-content">
+          <div class="dm-stats">
+            <div class="dm-stat">
+              <div class="sv" style="color:#5b52f0">12</div>
+              <div class="sl">Active Tasks</div>
+            </div>
+            <div class="dm-stat">
+              <div class="sv" style="color:#f05060">3</div>
+              <div class="sl">Overdue</div>
+            </div>
+            <div class="dm-stat">
+              <div class="sv" style="color:#00d4a0">7</div>
+              <div class="sl">Meetings</div>
+            </div>
+            <div class="dm-stat">
+              <div class="sv" style="color:#f0a030">84<span style="font-size:12px">%</span></div>
+              <div class="sl">Completion</div>
+            </div>
+          </div>
+          <div class="dm-card">
+            <div class="dm-card-head">Master Tasks <span>Showing 4 of 12 · sorted by priority</span></div>
+            <div class="dm-row">
+              <span class="dr-id">T-001</span>
+              <span class="dr-task">Finalize partnership MoU — Lagos branch</span>
+              <span class="dr-badge urgent">URGENT</span>
+              <div class="dr-prog"><div class="dr-track"><div class="dr-fill" style="width:70%"></div></div><span class="dr-pct">70%</span></div>
+            </div>
+            <div class="dm-row">
+              <span class="dr-id">T-002</span>
+              <span class="dr-task">Field intel review — Abuja region</span>
+              <span class="dr-badge high">HIGH</span>
+              <div class="dr-prog"><div class="dr-track"><div class="dr-fill" style="width:45%;background:#f0a030"></div></div><span class="dr-pct">45%</span></div>
+            </div>
+            <div class="dm-row">
+              <span class="dr-id">T-003</span>
+              <span class="dr-task">Submit social media plan — Q3</span>
+              <span class="dr-badge medium">MEDIUM</span>
+              <div class="dr-prog"><div class="dr-track"><div class="dr-fill" style="width:90%;background:#00d4a0"></div></div><span class="dr-pct">90%</span></div>
+            </div>
+            <div class="dm-row">
+              <span class="dr-id">T-004</span>
+              <span class="dr-task">EOD reports review — this week's backlog</span>
+              <span class="dr-badge medium">MEDIUM</span>
+              <div class="dr-prog"><div class="dr-track"><div class="dr-fill" style="width:20%"></div></div><span class="dr-pct">20%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="features-inner">
+    <div class="reveal">
+      <div class="section-label">Core Capabilities</div>
+      <h2 class="section-h2">Built for Real Ops</h2>
+      <p class="section-sub">No bloat. Every feature in NEXUS was designed around how teams actually work — not how tools assume they do.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat reveal reveal-d1" style="--feat-color:#5b52f0">
+        <div class="feat-icon" style="background:rgba(91,82,240,0.1);border-color:rgba(91,82,240,0.2)">⚡</div>
+        <h3>Real-Time KPI Dashboard</h3>
+        <p>Live stat cards track active tasks, overdue items, meeting counts, and team completion rates. Every metric updates the moment data changes — no refresh needed.</p>
+        <span class="feat-tag" style="background:rgba(91,82,240,0.1);color:#8880ff;border-color:rgba(91,82,240,0.2)">LIVE METRICS</span>
+      </div>
+      <div class="feat reveal reveal-d2" style="--feat-color:#00d4a0">
+        <div class="feat-icon" style="background:rgba(0,212,160,0.1);border-color:rgba(0,212,160,0.2)">✓</div>
+        <h3>Master Task Tracker</h3>
+        <p>Full CRUD task management with priorities (Urgent → Low), deadlines, assignee filtering, dependency chips, stale-task alerts, progress bars, and CSV export.</p>
+        <span class="feat-tag" style="background:rgba(0,212,160,0.1);color:#00d4a0;border-color:rgba(0,212,160,0.2)">TASK MANAGEMENT</span>
+      </div>
+      <div class="feat reveal reveal-d3" style="--feat-color:#f0a030">
+        <div class="feat-icon" style="background:rgba(240,160,48,0.1);border-color:rgba(240,160,48,0.2)">📊</div>
+        <h3>EOD Report System</h3>
+        <p>Team members submit structured end-of-day reports — completed tasks, key achievements, blockers, and tomorrow's plan — all fed into a searchable activity log.</p>
+        <span class="feat-tag" style="background:rgba(240,160,48,0.1);color:#f0a030;border-color:rgba(240,160,48,0.2)">ACCOUNTABILITY</span>
+      </div>
+      <div class="feat reveal reveal-d1" style="--feat-color:#4090f0">
+        <div class="feat-icon" style="background:rgba(64,144,240,0.1);border-color:rgba(64,144,240,0.2)">📅</div>
+        <h3>Meetings & Calendar</h3>
+        <p>Schedule, track, and review meetings with a full calendar view. In-app notification banners alert attendees about new meetings. Past and upcoming views in one place.</p>
+        <span class="feat-tag" style="background:rgba(64,144,240,0.1);color:#4090f0;border-color:rgba(64,144,240,0.2)">SCHEDULING</span>
+      </div>
+      <div class="feat reveal reveal-d2" style="--feat-color:#f05060">
+        <div class="feat-icon" style="background:rgba(240,80,96,0.1);border-color:rgba(240,80,96,0.2)">🔔</div>
+        <h3>Failsafe Alerts</h3>
+        <p>Automated flags surface when tasks go overdue, follow-ups are neglected, or KPI thresholds are breached. Nothing falls through the cracks.</p>
+        <span class="feat-tag" style="background:rgba(240,80,96,0.1);color:#f08090;border-color:rgba(240,80,96,0.2)">RISK MANAGEMENT</span>
+      </div>
+      <div class="feat reveal reveal-d3" style="--feat-color:#00d4a0">
+        <div class="feat-icon" style="background:rgba(0,212,160,0.1);border-color:rgba(0,212,160,0.2)">🤝</div>
+        <h3>Partnership & Org Database</h3>
+        <p>Track partner organisations, MoU status, follow-up dates, and contact info. Separate org database for institutional contacts, all with filterable table views.</p>
+        <span class="feat-tag" style="background:rgba(0,212,160,0.1);color:#00d4a0;border-color:rgba(0,212,160,0.2)">CRM-LITE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section id="modules">
+  <div class="modules-inner">
+    <div class="reveal">
+      <div class="section-label">System Architecture</div>
+      <h2 class="section-h2">10 Modules. One Interface.</h2>
+      <p class="section-sub">NEXUS is modular by design. Each section is a self-contained workspace — yet everything shares one data layer.</p>
+    </div>
+    <div class="modules-grid">
+      <div class="mod reveal reveal-d1">
+        <div class="mod-num">01</div>
+        <div class="mod-body">
+          <h4>KPI Dashboard</h4>
+          <p>High-level command view. Stat cards, recent tasks, and team activity at a glance. The homepage of your ops day.</p>
+          <div class="tags"><span class="mod-tag">Live stats</span><span class="mod-tag">Overdue flags</span><span class="mod-tag">Team pulse</span></div>
+        </div>
+      </div>
+      <div class="mod reveal reveal-d2">
+        <div class="mod-num">02</div>
+        <div class="mod-body">
+          <h4>Master Tasks</h4>
+          <p>Prioritised task list with full filtering, sorting, deadline tracking, dependency management, and batch editing.</p>
+          <div class="tags"><span class="mod-tag">CRUD</span><span class="mod-tag">Dependencies</span><span class="mod-tag">Export CSV</span></div>
+        </div>
+      </div>
+      <div class="mod reveal reveal-d1">
+        <div class="mod-num">03</div>
+        <div class="mod-body">
+          <h4>Field Intelligence</h4>
+          <p>Ground-level data capture for ops on the move — log field observations, flag emerging risks, record informal intel, and surface patterns across regions before they hit the task board.</p>
+          <div class="tags"><span class="mod-tag">Risk capture</span><span class="mod-tag">Regional view</span><span class="mod-tag">Pattern alerts</span></div>
+        </div>
+      </div>
+      <div class="mod reveal reveal-d2">
+        <div class="mod-num">04</div>
+        <div class="mod-body">
+          <h4>Partnerships</h4>
+          <p>Pipeline tracking for partner organisations — from initial contact through MoU signing. Assigned reps, follow-up dates, and status chips.</p>
+          <div class="tags"><span class="mod-tag">Pipeline</span><span class="mod-tag">MoU tracking</span><span class="mod-tag">Follow-ups</span></div>
+        </div>
+      </div>
+      <div class="mod reveal reveal-d1">
+        <div class="mod-num">05</div>
+        <div class="mod-body">
+          <h4>Org Database</h4>
+          <p>Institutional contact management — industry, location, contact details, and engagement status for every organisation in scope.</p>
+          <div class="tags"><span class="mod-tag">Industry filter</span><span class="mod-tag">Contact mgmt</span></div>
+        </div>
+      </div>
+      <div class="mod reveal reveal-d2">
+        <div class="mod-num">06</div>
+        <div class="mod-body">
+          <h4>Marketing Tracker</h4>
+          <p>Content production pipeline — campaign type, platform, assigned creator, due dates, status, and live post links.</p>
+          <div class="tags"><span class="mod-tag">Campaigns</span><span class="mod-tag">Platforms</span><span class="mod-tag">Links</span></div>
+        </div>
+      </div>
+      <div class="mod reveal reveal-d1">
+        <div class="mod-num">07</div>
+        <div class="mod-body">
+          <h4>EOD Reports</h4>
+          <p>Structured daily reporting — completed tasks, achievement of the day, blockers, and next-day plan. Aggregated into the Activity Log.</p>
+          <div class="tags"><span class="mod-tag">Daily logs</span><span class="mod-tag">Blockers</span><span class="mod-tag">Accountability</span></div>
+        </div>
+      </div>
+      <div class="mod reveal reveal-d2">
+        <div class="mod-num">08</div>
+        <div class="mod-body">
+          <h4>Meetings</h4>
+          <p>Schedule meetings, set attendees, add agendas, and view everything on a full monthly calendar. Meeting notification banners on login.</p>
+          <div class="tags"><span class="mod-tag">Calendar view</span><span class="mod-tag">Notifications</span></div>
+        </div>
+      </div>
+      <div class="mod reveal reveal-d1">
+        <div class="mod-num">09</div>
+        <div class="mod-body">
+          <h4>Follow-Ups</h4>
+          <p>Dedicated tracker for pending follow-up actions — with overdue badges, contact references, and status updates.</p>
+          <div class="tags"><span class="mod-tag">Overdue alerts</span><span class="mod-tag">Status</span></div>
+        </div>
+      </div>
+      <div class="mod reveal reveal-d2">
+        <div class="mod-num">10</div>
+        <div class="mod-body">
+          <h4>Failsafe & Automation</h4>
+          <p>System-level alerts and configurable automation rules. The failsafe layer that keeps the team from missing critical items.</p>
+          <div class="tags"><span class="mod-tag">Auto-flags</span><span class="mod-tag">Rules engine</span><span class="mod-tag">Alerts</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="how-inner">
+    <div class="reveal">
+      <div class="section-label">Workflow</div>
+      <h2 class="section-h2">How a Day in NEXUS Flows</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal reveal-d1">
+        <div class="step-num">01</div>
+        <h4>Login & Check Dashboard</h4>
+        <p>Leaders authenticate. Everyone sees live stats — overdue tasks, today's meetings, and team activity at a glance.</p>
+      </div>
+      <div class="step reveal reveal-d2">
+        <div class="step-num">02</div>
+        <h4>Manage Tasks & Ops</h4>
+        <p>Create, assign, and update tasks. Log partnerships. Update stakeholder intel. Track marketing progress.</p>
+      </div>
+      <div class="step reveal reveal-d3">
+        <div class="step-num">03</div>
+        <h4>Run Meetings</h4>
+        <p>Schedule standups, check the calendar, mark attendance, and follow up on action items — all inside NEXUS.</p>
+      </div>
+      <div class="step reveal reveal-d4">
+        <div class="step-num">04</div>
+        <h4>Submit EOD Report</h4>
+        <p>Every team member files a structured end-of-day report. Leaders review the activity log and set tomorrow's priorities.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROLES -->
+<section id="roles">
+  <div class="roles-inner">
+    <div class="reveal">
+      <div class="section-label">Who It Serves</div>
+      <h2 class="section-h2">Built for Every Role</h2>
+      <p class="section-sub">NEXUS gives each team role exactly what they need — with leader-only access for sensitive controls.</p>
+    </div>
+    <div class="roles-grid">
+      <div class="role reveal reveal-d1">
+        <div class="role-icon">🎯</div>
+        <h3>Team Leaders</h3>
+        <ul>
+          <li>Full CRUD access across all modules</li>
+          <li>Passphrase-authenticated session</li>
+          <li>Delete, edit, and batch-manage entries</li>
+          <li>Export any table to CSV</li>
+          <li>Assign tasks and set deadlines</li>
+        </ul>
+      </div>
+      <div class="role reveal reveal-d2">
+        <div class="role-icon">👥</div>
+        <h3>Team Members</h3>
+        <ul>
+          <li>View all active tasks and updates</li>
+          <li>"My Tasks" panel — personal quick view</li>
+          <li>Mark task progress and status</li>
+          <li>Submit daily EOD reports</li>
+          <li>Access meeting schedules</li>
+        </ul>
+      </div>
+      <div class="role reveal reveal-d3">
+        <div class="role-icon">🤝</div>
+        <h3>Partnership Leads</h3>
+        <ul>
+          <li>Manage the full partner pipeline</li>
+          <li>Log and track MoU negotiations</li>
+          <li>Assign follow-up owners and deadlines</li>
+          <li>Flag at-risk or stalled partnerships</li>
+          <li>Export partner reports</li>
+        </ul>
+      </div>
+      <div class="role reveal reveal-d1">
+        <div class="role-icon">📣</div>
+        <h3>Marketing Leads</h3>
+        <ul>
+          <li>Manage the content production pipeline</li>
+          <li>Assign creators and track due dates</li>
+          <li>Link live posts and campaign assets</li>
+          <li>Monitor platform coverage status</li>
+          <li>Coordinate cross-team deliverables</li>
+        </ul>
+      </div>
+      <div class="role reveal reveal-d2">
+        <div class="role-icon">📱</div>
+        <h3>Field Operatives</h3>
+        <ul>
+          <li>Mobile-optimised layout for on-the-go use</li>
+          <li>Quick-log tasks and status updates</li>
+          <li>Real-time alerts for overdue items</li>
+          <li>Access meeting briefs from anywhere</li>
+          <li>Submit EOD reports from any device</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<style>
+.cta-form-wrap{max-width:520px;margin:40px auto 0;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:36px 32px;position:relative;z-index:1}
+.cta-form-wrap h3{font-size:11px;font-family:'Space Mono',monospace;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent2);margin-bottom:22px}
+.cta-form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.cta-form-row.full{grid-template-columns:1fr}
+.cta-ff{display:flex;flex-direction:column;gap:5px}
+.cta-ff label{font-size:9px;font-family:'Space Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+.cta-ff input,.cta-ff select,.cta-ff textarea{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:10px 13px;color:var(--text);font-family:'Syne',sans-serif;font-size:13px;outline:none;transition:border-color 0.2s;resize:none;width:100%}
+.cta-ff input:focus,.cta-ff select:focus,.cta-ff textarea:focus{border-color:rgba(108,99,255,0.5)}
+.cta-ff select option{background:#0e0e22}
+.cta-submit{width:100%;margin-top:10px;font-size:12px;font-family:'Space Mono',monospace;font-weight:700;padding:13px 24px;border-radius:7px;background:linear-gradient(135deg,#6c63ff,#00e5b0);color:#fff;border:none;cursor:pointer;letter-spacing:1px;transition:all 0.25s;box-shadow:0 4px 20px rgba(108,99,255,0.2)}
+.cta-submit:hover:not(:disabled){opacity:0.9;transform:translateY(-2px)}
+.cta-submit:disabled{opacity:0.5;cursor:not-allowed}
+.cta-fmsg{margin-top:12px;padding:10px 14px;border-radius:6px;font-size:11px;font-family:'Space Mono',monospace;display:none}
+.cta-fmsg.ok{background:rgba(0,229,176,0.08);border:1px solid rgba(0,229,176,0.2);color:var(--accent2)}
+.cta-fmsg.err{background:rgba(240,80,96,0.08);border:1px solid rgba(240,80,96,0.2);color:var(--danger)}
+@media(max-width:520px){.cta-form-row{grid-template-columns:1fr}.cta-form-wrap{padding:24px 16px}}
+</style>
+
+<section id="cta">
+  <div class="cta-glow"></div>
+  <h2 class="reveal">Command Your Operations.<br>Start with NEXUS.</h2>
+  <p class="reveal">The operations platform. Built for teams that move fast and need every detail tracked.</p>
+
+  <div class="cta-form-wrap reveal">
+    <h3>Request Access</h3>
+    <div class="cta-form-row">
+      <div class="cta-ff">
+        <label for="r-name">Full Name *</label>
+        <input type="text" id="r-name" placeholder="Ada Okafor">
+      </div>
+      <div class="cta-ff">
+        <label for="r-email">Email *</label>
+        <input type="email" id="r-email" placeholder="ada@org.com">
+      </div>
+    </div>
+    <div class="cta-form-row">
+      <div class="cta-ff">
+        <label for="r-org">Organisation</label>
+        <input type="text" id="r-org" placeholder="Acme Corp">
+      </div>
+      <div class="cta-ff">
+        <label for="r-role">Your Role</label>
+        <select id="r-role">
+          <option value="">— Select —</option>
+          <option>Team Leader</option>
+          <option>Team Member</option>
+          <option>Partnership Lead</option>
+          <option>Marketing Lead</option>
+          <option>Field Operative</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="cta-form-row full">
+      <div class="cta-ff">
+        <label for="r-msg">Message (optional)</label>
+        <textarea id="r-msg" rows="3" placeholder="Tell us about your team or use case…"></textarea>
+      </div>
+    </div>
+    <button class="cta-submit" id="r-btn" onclick="nexusSubmit()">Request Access →</button>
+    <div class="cta-fmsg" id="r-fmsg"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">NEX<span>US</span></div>
+  <p>© 2026 NEXUS · All rights reserved</p>
+  <div class="footer-links">
+    <a href="#hero">Home</a>
+    <a href="#features">Features</a>
+    <a href="#modules">Modules</a>
+  </div>
+</footer>
+
+<script>
+// Intersection Observer for scroll reveals
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => observer.observe(el));
+
+// Hero enters immediately
+document.querySelectorAll('#hero .reveal, #hero .hero-h1, #hero .hero-sub, #hero .hero-btns, #hero .hero-stats, #hero .hero-label')
+  .forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity 0.7s ease ${i*0.12}s, transform 0.7s ease ${i*0.12}s`;
+    setTimeout(() => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    }, 100 + i * 120);
+  });
+
+// NEXUS form submission
+async function nexusSubmit() {
+  const name  = document.getElementById('r-name').value.trim();
+  const email = document.getElementById('r-email').value.trim();
+  const org   = document.getElementById('r-org').value.trim();
+  const role  = document.getElementById('r-role').value;
+  const msg   = document.getElementById('r-msg').value.trim();
+  const btn   = document.getElementById('r-btn');
+  const fmsg  = document.getElementById('r-fmsg');
+  if (!name || !email) { showFmsg('err','⚠ Name and email are required.'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showFmsg('err','⚠ Enter a valid email.'); return; }
+  btn.disabled = true; btn.textContent = 'Sending…'; fmsg.style.display = 'none';
+  try {
+    const res  = await fetch('https://script.google.com/macros/s/AKfycbxe5kE4onGXMD9vaadtzce8DR6h1BwSlSvp2EQcif2yyuIEYPPfi81g4J2MafneWoQ/exec', {
+      method: 'POST',
+      body: new URLSearchParams({ name, email, organisation: org, role, message: msg, source: 'Landing Page' })
+    });
+    const data = await res.json();
+    if (data.status === 'success') {
+      showFmsg('ok',"✓ Request received! We'll be in touch soon.");
+      ['r-name','r-email','r-org','r-msg'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('r-role').value = '';
+      btn.textContent = 'Sent ✓';
+    } else { throw new Error(data.message); }
+  } catch(err) {
+    showFmsg('err','✗ Something went wrong. Please try again.');
+    btn.disabled = false; btn.textContent = 'Request Access →';
+  }
+}
+function showFmsg(type, text) {
+  const b = document.getElementById('r-fmsg');
+  b.className = 'cta-fmsg ' + type; b.textContent = text; b.style.display = 'block';
+}
+
+// Smooth nav highlight
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--text)' : '';
+  });
+});
+</script>
+</body>
+</html>
