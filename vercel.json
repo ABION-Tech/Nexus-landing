@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/login", "destination": "https://app.nexusabion.com", "permanent": false },
+    { "source": "/signin", "destination": "https://app.nexusabion.com", "permanent": false },
+    { "source": "/set-password", "destination": "https://app.nexusabion.com/set-password", "permanent": false }
+  ]
+}
