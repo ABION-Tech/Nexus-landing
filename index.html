@@ -3,893 +3,1170 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NEXUS — run your whole working day</title>
-<meta name="description" content="NEXUS runs the working day for teams and companies of any size, and for groups of companies: tasks, end-of-day reports, goals, partnerships and an AI analyst, on one screen.">
-<meta name="theme-color" content="#05050f">
+<title>NEXUS — run the whole working day</title>
+<meta name="description" content="NEXUS gives teams and companies one place for tasks, daily reports, goals and partners, and runs the routine for you: the morning digest, the afternoon close and the end-of-day report.">
+<meta name="theme-color" content="#f6f5f1">
 <link rel="icon" href="/icon-192.png">
-<meta property="og:title" content="NEXUS — run the whole day">
-<meta property="og:description" content="Operations for teams, companies and groups: every task, report and goal, on one screen.">
+<meta property="og:title" content="NEXUS — run the whole working day">
+<meta property="og:description" content="Tasks, daily reports, goals and an AI analyst, on one screen. Built in Abuja.">
+<meta property="og:image" content="https://nexusabion.com/img/abuja-dawn.webp">
 <meta property="og:url" content="https://nexusabion.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/img/abuja-dawn.webp" fetchpriority="high">
 <script>document.documentElement.classList.add('js')</script>
 <style>
-/* ============================================================
-   NEXUS — 2026 rebuild
-   Aurora glass · kinetic type · bento modules · grain · West Africa Time
-   ============================================================ */
 :root{
-  --bg:#05050f;
-  --bg-2:#0a0a1e;
-  --ink:#f4f4ff;
-  --muted:#9d9dc6;
-  --teal:#00e5a0;
-  --teal-soft:rgba(0,229,160,.14);
-  --violet:#8b7bff;
-  --violet-soft:rgba(139,123,255,.16);
-  --cyan:#4fd8ff;
-  --danger:#ff6b8a;
-  --warn:#ffc24b;
-  --card:rgba(255,255,255,.035);
-  --card-2:rgba(255,255,255,.06);
-  --line:rgba(255,255,255,.09);
-  --line-soft:rgba(255,255,255,.06);
-  --glass:rgba(10,10,30,.55);
-  --font-d:'Space Grotesk',ui-sans-serif,system-ui,sans-serif;
-  --font-b:'Inter',ui-sans-serif,system-ui,sans-serif;
-  --font-m:'JetBrains Mono',ui-monospace,monospace;
+  --bg:#f6f5f1;
+  --paper:#ffffff;
+  --ink:#0d0d14;
+  --ink-2:#2b2b36;
+  --muted:#5f5f6d;
+  --line:rgba(13,13,20,.09);
+  --line-2:rgba(13,13,20,.16);
+  --accent:#5b52f0;
+  --accent-soft:#ecebff;
+  --teal:#0b9b78;
+  --teal-soft:#e2f5ef;
+  --amber:#b7740c;
+  --amber-soft:#fbf0dc;
+  --red:#cf3b4f;
+  --red-soft:#fbe6e9;
+
+  /* the app window keeps the product's own dark theme */
+  --app-bg:#0c0c15;
+  --app-side:#11111c;
+  --app-panel:#171724;
+  --app-panel-2:#1e1e2e;
+  --app-line:rgba(255,255,255,.08);
+  --app-ink:#ecebf5;
+  --app-muted:#9a99b0;
+
+  --display:'Inter Tight',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --body:'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+
   --margin:clamp(20px,4vw,56px);
-  --r-lg:24px; --r-md:16px; --r-sm:12px;
+  --max:1240px;
+  --r:14px;
   --ease:cubic-bezier(.22,1,.36,1);
-  --step-display:clamp(3.4rem,9.2vw,8.75rem);
-  --step-head:clamp(2.1rem,4.6vw,4rem);
-  --step-lead:clamp(1.15rem,1.4vw,1.45rem);
 }
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:96px}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-b);font-size:16.5px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-img,svg{display:block;max-width:100%}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+img{display:block;max-width:100%}
 a{color:inherit}
-h1,h2,h3,p{margin:0}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-::selection{background:var(--teal);color:#04140e}
-:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:4px}
-.wrap{padding-inline:var(--margin);max-width:1440px;margin-inline:auto}
-.muted{color:var(--muted)}
-.mono{font-family:var(--font-m);font-size:.82em;letter-spacing:.04em}
+button{font:inherit;color:inherit;cursor:pointer}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.035em;line-height:1.02;margin:0}
+p{margin:0}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--margin)}
+.mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.02em}
+.kicker{font-family:var(--mono);font-size:12.5px;color:var(--accent);letter-spacing:.04em}
+.lede{font-size:clamp(18px,1.15vw + 12px,21px);line-height:1.55;color:var(--ink-2);max-width:40ch}
+.btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:999px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid transparent;transition:transform .2s var(--ease),background .2s,box-shadow .2s;white-space:nowrap}
+.btn--dark{background:var(--ink);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 8px 24px -10px rgba(13,13,20,.5)}
+.btn--dark:hover{transform:translateY(-1px);background:#1d1d29}
+.btn--ghost{background:rgba(255,255,255,.7);border-color:var(--line-2);backdrop-filter:blur(8px)}
+.btn--ghost:hover{background:#fff}
+.btn svg{width:16px;height:16px}
 
-/* ---------- Atmosphere: aurora + grid + grain ---------- */
-.sky{position:fixed;inset:0;z-index:-2;overflow:hidden;background:
-  radial-gradient(120% 90% at 50% 0%,#0d0d26 0%,var(--bg) 60%)}
-.blob{position:absolute;border-radius:50%;filter:blur(110px);opacity:.55;will-change:transform}
-.blob--a{width:56vw;height:56vw;left:-14vw;top:-18vw;background:radial-gradient(circle at 40% 40%,rgba(0,229,160,.32),transparent 65%);animation:drift-a 26s ease-in-out infinite alternate}
-.blob--b{width:48vw;height:48vw;right:-16vw;top:8vh;background:radial-gradient(circle at 60% 40%,rgba(139,123,255,.30),transparent 65%);animation:drift-b 32s ease-in-out infinite alternate}
-.blob--c{width:44vw;height:44vw;left:22vw;top:52vh;background:radial-gradient(circle at 50% 50%,rgba(79,216,255,.16),transparent 65%);animation:drift-c 38s ease-in-out infinite alternate}
-@keyframes drift-a{to{transform:translate(9vw,7vh) scale(1.12)}}
-@keyframes drift-b{to{transform:translate(-8vw,10vh) scale(.92)}}
-@keyframes drift-c{to{transform:translate(-6vw,-9vh) scale(1.15)}}
-.sky::after{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(75% 60% at 50% 30%,#000 0%,transparent 100%);opacity:.5}
-.grain{position:fixed;inset:-50%;z-index:60;pointer-events:none;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 8s steps(10) infinite}
-@keyframes grain{0%,100%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-4%)}60%{transform:translate(-2%,-2%)}80%{transform:translate(4%,2%)}}
-
-/* ---------- Scroll progress ---------- */
-.progress{position:fixed;top:0;left:0;height:2px;width:100%;z-index:90;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--teal),var(--cyan),var(--violet))}
-
-/* ---------- Glass primitives ---------- */
-.glass{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.glow-card{position:relative;transition:transform .5s var(--ease),border-color .4s ease,background .4s ease}
-.glow-card::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(0,229,160,.55),transparent 40%,transparent 60%,rgba(139,123,255,.5));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .45s ease;pointer-events:none}
-.glow-card:hover{transform:translateY(-4px);background:var(--card-2)}
-.glow-card:hover::before{opacity:1}
-
-/* ---------- Buttons ---------- */
-.button{position:relative;display:inline-flex;align-items:center;gap:10px;justify-content:center;min-height:3.4rem;padding:0 1.9rem;border-radius:999px;background:var(--teal);color:#04140e;font-weight:600;font-size:1rem;text-decoration:none;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s ease}
-.button svg{width:16px;height:16px;transition:transform .35s var(--ease)}
-.button:hover{transform:translateY(-2px);box-shadow:0 12px 40px -8px rgba(0,229,160,.55)}
-.button:hover svg{transform:translateX(4px)}
-.button:active{transform:scale(.97)}
-.button--ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.button--ghost:hover{box-shadow:none;border-color:rgba(255,255,255,.3);background:var(--card-2)}
-.link{font-weight:600;text-decoration:none;transition:color .2s ease}
-.link:hover{color:var(--teal)}
-
-/* ---------- Nav ---------- */
-.nav{position:fixed;top:0;left:0;right:0;z-index:80;transition:background .4s ease,border-color .4s ease;border-bottom:1px solid transparent}
-.nav.is-scrolled{background:rgba(5,5,15,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-color:var(--line-soft)}
-.nav__in{display:flex;align-items:center;gap:36px;padding:18px var(--margin)}
-.wordmark{font-family:var(--font-d);font-weight:700;font-size:1.25rem;letter-spacing:.16em;text-decoration:none;display:flex;align-items:center;gap:10px}
-.wordmark i{width:10px;height:10px;border-radius:3px;background:var(--teal);box-shadow:0 0 18px var(--teal);display:inline-block}
-.nav__links{display:flex;gap:30px;font-size:.92rem;font-weight:500}
-.nav__links a{text-decoration:none;color:var(--muted);transition:color .2s ease}
+/* ---------- nav ---------- */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,box-shadow .3s}
+.nav.is-stuck{background:rgba(246,245,241,.82);backdrop-filter:saturate(1.4) blur(14px);box-shadow:0 1px 0 var(--line)}
+.nav__in{display:flex;align-items:center;gap:28px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;letter-spacing:.16em;font-size:17px;text-decoration:none}
+.logo i{width:22px;height:22px;border-radius:7px;background:conic-gradient(from 200deg,var(--accent),var(--teal),var(--accent));display:block;position:relative}
+.logo i::after{content:"";position:absolute;inset:6px;border-radius:3px;background:var(--bg)}
+.nav__links{display:flex;gap:26px;margin-left:12px}
+.nav__links a{text-decoration:none;color:var(--ink-2);font-size:15px;font-weight:500}
 .nav__links a:hover{color:var(--ink)}
-.nav__right{margin-left:auto;display:flex;align-items:center;gap:22px}
-.nav__signin{color:var(--ink)}
-.nav .button{min-height:2.6rem;padding:0 1.3rem;font-size:.9rem}
+.nav__right{margin-left:auto;display:flex;align-items:center;gap:18px}
+.nav__right .signin{text-decoration:none;font-weight:600;font-size:15px}
+.nav .btn{height:40px;padding:0 18px;font-size:15px}
 
-/* ---------- Hero ---------- */
-.hero{position:relative;padding:clamp(150px,20svh,210px) var(--margin) 0;min-height:100svh;display:flex;flex-direction:column}
-.hero__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,4vw,64px);align-items:center;flex:1}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-m);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(0,229,160,.3);background:var(--teal-soft);border-radius:999px;padding:8px 16px}
-.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 2.2s ease-in-out infinite}
-@keyframes pulse{50%{opacity:.35;transform:scale(.8)}}
-.hero h1{font-family:var(--font-d);font-weight:700;font-size:var(--step-display);line-height:.92;letter-spacing:-.045em;margin-top:30px}
-.lines .line{display:block;overflow:hidden;padding-bottom:.09em;margin-bottom:-.09em}
-.lines [data-line]{display:block}
-.grad{background:linear-gradient(100deg,var(--teal) 10%,var(--cyan) 55%,var(--violet) 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero__talk p.lead{margin-top:28px;max-width:44ch;font-size:var(--step-lead);line-height:1.5;color:var(--muted)}
-.hero__talk p.lead b{color:var(--ink);font-weight:600}
-.hero__cta{display:flex;align-items:center;gap:22px;margin-top:36px;flex-wrap:wrap}
-.hero__signin{font-size:.9rem;color:var(--muted)}
-.hero__signin a{color:var(--ink)}
-.hero__meta{display:flex;gap:34px;margin-top:44px;padding-top:26px;border-top:1px solid var(--line-soft);flex-wrap:wrap}
-.hero__meta div b{display:block;font-family:var(--font-d);font-size:1.5rem;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.hero__meta div span{font-size:.82rem;color:var(--muted)}
+/* ---------- hero ---------- */
+.hero{position:relative;padding-top:clamp(120px,14vh,170px);isolation:isolate}
+.hero__photo{position:absolute;inset:0 0 auto 0;height:min(1040px,128vh);z-index:-1;overflow:hidden}
+.hero__photo img{width:100%;height:100%;object-fit:cover;object-position:50% 62%;transform:scale(1.04);transform-origin:50% 70%}
+.hero__photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(246,245,241,.92) 0%,rgba(246,245,241,.8) 34%,rgba(246,245,241,.35) 52%,rgba(246,245,241,0) 64%,rgba(246,245,241,0) 74%,var(--bg) 97%)}
+.hero__copy{text-align:center;display:flex;flex-direction:column;align-items:center}
+.hero__eyebrow{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 8px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid var(--line);backdrop-filter:blur(8px);font-size:14px;color:var(--ink-2);margin-bottom:26px;text-decoration:none}
+.hero__eyebrow b{font-weight:600;background:var(--ink);color:#fff;border-radius:999px;padding:2px 9px;font-size:12px;letter-spacing:.02em}
+.hero h1{font-size:clamp(46px,7.4vw,108px);letter-spacing:-.05em;line-height:.96;max-width:12ch}
+.hero h1 em{font-style:normal;background:linear-gradient(100deg,var(--accent) 10%,var(--teal) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero__sub{margin-top:26px;font-size:clamp(18px,1.2vw + 12px,21px);line-height:1.5;color:var(--ink-2);max-width:46ch}
+.hero__cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:34px}
+.hero__note{margin-top:16px;font-size:14px;color:var(--ink-2)}
+.hero__note a{font-weight:600}
 
-/* Hero product panel */
-.hero__stage{position:relative;perspective:1400px}
-.panel{position:relative;border-radius:20px;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid var(--line);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 40px 120px -30px rgba(0,0,0,.7);padding:22px;transform-style:preserve-3d;transition:transform .6s var(--ease)}
-.panel__bar{display:flex;align-items:center;gap:8px;padding-bottom:16px;border-bottom:1px solid var(--line-soft)}
-.panel__bar i{width:10px;height:10px;border-radius:50%;background:#2b2b52}
-.panel__bar i:first-child{background:var(--danger)}
-.panel__bar i:nth-child(2){background:var(--warn)}
-.panel__bar i:nth-child(3){background:var(--teal)}
-.panel__bar span{margin-left:auto;font-family:var(--font-m);font-size:.72rem;color:var(--muted);letter-spacing:.06em}
-.panel__body{padding-top:18px;display:grid;grid-template-columns:1.15fr .85fr;gap:20px}
-.panel h3{font-family:var(--font-d);font-size:1.35rem;font-weight:700;letter-spacing:-.02em}
-.panel .who{margin-top:4px;font-size:.85rem;color:var(--muted)}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
-.stat{background:rgba(255,255,255,.045);border:1px solid var(--line-soft);border-radius:12px;padding:12px 14px}
-.stat b{display:block;font-family:var(--font-d);font-size:1.55rem;font-weight:700;font-variant-numeric:tabular-nums}
-.stat span{font-size:.74rem;color:var(--muted)}
-.stat--warn b{color:var(--danger)}
-.needs{border-left:1px solid var(--line-soft);padding-left:20px}
-.needs h4{margin:0 0 6px;font-size:.74rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em}
-.need{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:9px 0;border-bottom:1px solid var(--line-soft);font-size:.86rem}
-.need:last-child{border-bottom:0}
-.need .t{font-weight:600}
-.need .m{grid-column:1;color:var(--muted);font-size:.78rem}
-.chip{font-family:var(--font-m);font-size:.68rem;font-weight:500;padding:3px 9px;border-radius:999px;white-space:nowrap;align-self:start}
-.chip--over{background:rgba(255,107,138,.15);color:var(--danger)}
-.chip--today{background:rgba(255,194,75,.15);color:var(--warn)}
-.chip--ok{background:rgba(0,229,160,.15);color:var(--teal)}
-.chip--plain{background:rgba(255,255,255,.08);color:var(--ink)}
+/* ---------- the app window ---------- */
+.stage{position:relative;margin:clamp(56px,8vh,90px) auto 0;max-width:1180px;padding:0 var(--margin);perspective:1800px}
+.app{background:var(--app-bg);color:var(--app-ink);border-radius:18px;border:1px solid rgba(255,255,255,.1);box-shadow:0 0 0 1px rgba(13,13,20,.06),0 40px 80px -30px rgba(13,13,20,.55),0 18px 40px -20px rgba(91,82,240,.35);overflow:hidden;transform-origin:50% 0;font-size:14px;line-height:1.45}
+.js .app{transform:rotateX(14deg) scale(.96);opacity:.0;transition:transform 1.4s var(--ease),opacity .9s var(--ease)}
+.js .app.is-in{transform:none;opacity:1}
+.app__bar{display:flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-bottom:1px solid var(--app-line);background:#0f0f1a}
+.app__bar i{width:11px;height:11px;border-radius:50%;background:#2c2c3c}
+.app__url{margin:0 auto;font-family:var(--mono);font-size:12px;color:var(--app-muted);background:#171724;border-radius:7px;padding:4px 14px;display:flex;gap:8px;align-items:center}
+.app__url svg{width:11px;height:11px;opacity:.7}
+.app__body{display:grid;grid-template-columns:220px 1fr;min-height:560px}
+.side{background:var(--app-side);border-right:1px solid var(--app-line);padding:16px 12px;display:flex;flex-direction:column;gap:2px}
+.side__org{display:flex;align-items:center;gap:10px;padding:8px 10px 16px}
+.side__org b{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#5b52f0,#0fb48b);font-family:var(--display);font-size:13px;color:#fff}
+.side__org span{font-weight:600;font-size:13.5px}
+.side__org small{display:block;color:var(--app-muted);font-size:11.5px;font-weight:400}
+.tab{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;border:0;background:none;color:var(--app-muted);font-size:13.5px;font-weight:500;text-align:left;width:100%;transition:background .15s,color .15s}
+.tab svg{width:16px;height:16px;flex:none}
+.tab:hover{background:rgba(255,255,255,.04);color:var(--app-ink)}
+.tab[aria-selected="true"]{background:rgba(91,82,240,.16);color:#fff}
+.tab .count{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--app-muted)}
+.side__foot{margin-top:auto;padding:12px 10px 4px;border-top:1px solid var(--app-line);color:var(--app-muted);font-size:12px;display:flex;align-items:center;gap:8px}
+.side__foot .dot{width:7px;height:7px;border-radius:50%;background:#2fd59e;box-shadow:0 0 0 3px rgba(47,213,158,.15)}
+.view{padding:26px 28px;min-width:0;position:relative}
+.view[hidden]{display:none}
+.view h3{font-size:22px;letter-spacing:-.02em;color:#fff}
+.view__head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px}
+.view__head p{color:var(--app-muted);font-size:13.5px;margin-top:6px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.stat{background:var(--app-panel);border:1px solid var(--app-line);border-radius:12px;padding:14px 16px}
+.stat b{display:block;font-family:var(--display);font-size:28px;letter-spacing:-.03em;color:#fff;font-variant-numeric:tabular-nums}
+.stat span{color:var(--app-muted);font-size:12.5px}
+.stat.is-red b{color:#ff7d8e}
+.stat.is-amber b{color:#f5c26b}
+.cols{display:grid;grid-template-columns:1.35fr 1fr;gap:14px}
+.panel{background:var(--app-panel);border:1px solid var(--app-line);border-radius:12px;padding:6px 0;min-width:0}
+.panel__t{display:flex;justify-content:space-between;align-items:center;padding:10px 16px 8px;color:var(--app-muted);font-size:12px;font-weight:600;letter-spacing:.02em}
+.row{display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;padding:10px 16px;border-top:1px solid var(--app-line)}
+.row:first-of-type{border-top:0}
+.check{width:18px;height:18px;border-radius:6px;border:1.5px solid #4a4a63;background:none;display:grid;place-items:center;padding:0;transition:background .2s,border-color .2s}
+.check svg{width:11px;height:11px;opacity:0;transform:scale(.4);transition:opacity .2s,transform .3s var(--ease)}
+.row.is-done .check{background:#2fd59e;border-color:#2fd59e}
+.row.is-done .check svg{opacity:1;transform:none}
+.row__t{font-weight:500;color:#f3f2fa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row.is-done .row__t{color:var(--app-muted);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3)}
+.row__m{display:block;color:var(--app-muted);font-size:12px;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip{font-family:var(--mono);font-size:11px;padding:3px 8px;border-radius:999px;white-space:nowrap;background:rgba(255,255,255,.06);color:var(--app-muted)}
+.chip--red{background:rgba(255,92,112,.14);color:#ff8d9b}
+.chip--amber{background:rgba(245,176,64,.14);color:#f5c26b}
+.chip--green{background:rgba(47,213,158,.14);color:#57e2b2}
+.chip--violet{background:rgba(124,114,255,.18);color:#b3adff}
+.mini-ai{padding:12px 16px 14px;display:flex;flex-direction:column;gap:10px}
+.mini-ai p{color:var(--app-ink);font-size:13.5px}
+.mini-ai small{color:var(--app-muted)}
+.bar{height:6px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#5b52f0,#2fd59e);transition:width 1.4s var(--ease)}
+.task-actions{display:flex;gap:8px}
+.abtn{border:1px solid var(--app-line);background:var(--app-panel-2);color:var(--app-ink);font-size:12.5px;font-weight:600;padding:7px 12px;border-radius:8px;display:inline-flex;gap:6px;align-items:center;transition:background .15s,border-color .15s}
+.abtn:hover{background:#262638;border-color:rgba(255,255,255,.16)}
+.abtn--primary{background:#5b52f0;border-color:#5b52f0;color:#fff}
+.abtn--primary:hover{background:#6a62ff}
+.abtn[disabled]{opacity:.55;cursor:default}
+.abtn svg{width:14px;height:14px}
+.toast{position:absolute;left:50%;bottom:18px;transform:translate(-50%,20px);opacity:0;background:#fff;color:var(--ink);font-size:13px;font-weight:500;padding:9px 14px;border-radius:10px;box-shadow:0 12px 30px -10px rgba(0,0,0,.5);transition:opacity .25s,transform .35s var(--ease);pointer-events:none;white-space:nowrap;display:flex;gap:8px;align-items:center}
+.toast.is-on{opacity:1;transform:translate(-50%,0)}
+.toast i{width:8px;height:8px;border-radius:50%;background:var(--teal)}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.filter{border:1px solid var(--app-line);background:none;color:var(--app-muted);font-size:12.5px;padding:5px 11px;border-radius:999px}
+.filter[aria-pressed="true"]{background:#fff;color:#0c0c15;border-color:#fff}
+.report{padding:14px 16px;border-top:1px solid var(--app-line);display:grid;grid-template-columns:34px 1fr;gap:12px}
+.report:first-of-type{border-top:0}
+.ava{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:12px;color:#fff}
+.report h4{margin:0;font-size:13.5px;font-weight:600;color:#fff}
+.report h4 span{color:var(--app-muted);font-weight:400}
+.report dl{margin:8px 0 0;display:grid;grid-template-columns:76px 1fr;gap:4px 10px;font-size:13px}
+.report dt{color:var(--app-muted)}
+.report dd{margin:0;color:var(--app-ink)}
+.goal{padding:14px 16px;border-top:1px solid var(--app-line)}
+.goal:first-of-type{border-top:0}
+.goal__t{display:flex;justify-content:space-between;gap:10px;margin-bottom:9px}
+.goal__t b{font-weight:600;color:#fff;font-size:13.5px}
+.goal__t span{font-family:var(--mono);font-size:12px;color:var(--app-muted)}
+.goal small{display:block;color:var(--app-muted);font-size:12px;margin-top:8px}
+.chat{display:flex;flex-direction:column;gap:12px;padding:16px;min-height:300px}
+.msg{max-width:78%;padding:10px 14px;border-radius:14px;font-size:13.5px}
+.msg--me{align-self:flex-end;background:#5b52f0;color:#fff;border-bottom-right-radius:4px}
+.msg--ai{align-self:flex-start;background:var(--app-panel-2);border:1px solid var(--app-line);border-bottom-left-radius:4px}
+.msg--ai b{color:#fff}
+.msg__from{font-family:var(--mono);font-size:10.5px;color:var(--app-muted);margin-bottom:4px;display:block}
+.caret{display:inline-block;width:7px;height:14px;background:#b3adff;vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.prompts{display:flex;gap:8px;flex-wrap:wrap;padding:0 16px 16px}
+.prompt{border:1px solid rgba(124,114,255,.4);background:rgba(124,114,255,.08);color:#d4d1ff;font-size:12.5px;padding:7px 12px;border-radius:999px}
+.prompt:hover{background:rgba(124,114,255,.18)}
+.prompt[disabled]{opacity:.4;cursor:default}
+.stage__hint{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:22px;color:var(--muted);font-size:14px}
+.stage__hint span{display:inline-flex;gap:8px;align-items:center}
+.stage__hint kbd{font-family:var(--mono);font-size:11px;border:1px solid var(--line-2);border-bottom-width:2px;border-radius:6px;padding:1px 6px;background:#fff;color:var(--ink-2)}
 
-/* Floating clock card */
-.clock{position:absolute;z-index:3;left:-34px;bottom:38px;width:300px;border-radius:18px;padding:18px 20px;background:rgba(8,8,24,.8);border:1px solid rgba(0,229,160,.35);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 24px 70px -20px rgba(0,229,160,.35);animation:float 7s ease-in-out infinite}
-@keyframes float{50%{transform:translateY(-12px)}}
-.clock__label{display:flex;align-items:center;gap:8px;font-family:var(--font-m);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
-.clock__label i{width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal);animation:pulse 2s infinite}
-.clock__time{font-family:var(--font-m);font-size:2.3rem;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:6px}
-.clock__time em{font-style:normal;font-size:.5em;color:var(--muted);font-weight:500}
-.clock__next{margin-top:8px;font-size:.8rem;color:var(--muted);line-height:1.45}
-
-/* Orbit ring deco */
-.orbit{position:absolute;width:520px;height:520px;right:-140px;top:-90px;border:1px dashed rgba(139,123,255,.28);border-radius:50%;animation:spin 60s linear infinite;pointer-events:none}
-.orbit::after{content:"";position:absolute;top:-5px;left:50%;width:10px;height:10px;border-radius:50%;background:var(--violet);box-shadow:0 0 16px var(--violet)}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* ---------- Marquee ---------- */
-.marquee{margin-top:clamp(56px,9svh,110px);border-block:1px solid var(--line-soft);padding:20px 0;overflow:hidden;position:relative}
-.marquee::before,.marquee::after{content:"";position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none}
-.marquee::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
-.marquee::after{right:0;background:linear-gradient(-90deg,var(--bg),transparent)}
-.marquee__track{display:flex;gap:48px;width:max-content;animation:scroll-x 32s linear infinite}
-.marquee__track span{font-family:var(--font-d);font-size:1.05rem;font-weight:500;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:48px}
-.marquee__track span::after{content:"✦";color:var(--teal);font-size:.8em}
-@keyframes scroll-x{to{transform:translateX(-50%)}}
-
-/* ---------- Sections ---------- */
+/* ---------- sections ---------- */
 section{position:relative}
-.section{padding-top:clamp(110px,13vw,190px)}
-.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:clamp(40px,5vw,72px);flex-wrap:wrap}
-h2{font-family:var(--font-d);font-weight:700;font-size:var(--step-head);letter-spacing:-.04em;line-height:1}
-.kicker{font-family:var(--font-m);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.kicker::before{content:"";width:26px;height:1px;background:var(--teal)}
-.sec-head p{max-width:40ch;color:var(--muted);font-size:1.02rem}
+.sec{padding:clamp(110px,14vw,190px) 0 0}
+.sec__head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:clamp(44px,6vw,72px)}
+.sec__head h2{font-size:clamp(38px,4.6vw,68px)}
+.sec__head .lede{justify-self:end}
+.sec__head .kicker{display:block;margin-bottom:18px}
 
-/* ---------- Showcase: task lifecycle ---------- */
-.lifecycle{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.state-card{padding:26px;min-height:340px;display:flex;flex-direction:column;gap:18px}
-.state-card .num{font-family:var(--font-m);font-size:.72rem;color:var(--muted);letter-spacing:.1em}
-.state-card h3{font-family:var(--font-d);font-size:1.4rem;font-weight:700;letter-spacing:-.02em}
-.task{position:relative;margin-top:auto;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--line);padding:16px;display:grid;grid-template-columns:26px 1fr;gap:6px 12px;align-items:center;transition:border-color .3s ease,transform .3s var(--ease)}
-.task__check{width:22px;height:22px;border-radius:7px;border:2px solid #3d3d6e;display:grid;place-items:center;padding:0;background:transparent;color:#04140e;transition:background .25s ease,border-color .25s ease}
-.task__check svg{width:13px;height:13px;opacity:0;transform:scale(.4);transition:.25s var(--ease)}
-.task__title{font-weight:600;font-size:.95rem}
-.task__meta{grid-column:2;font-size:.78rem;color:var(--muted)}
-.task__people{grid-column:2;display:flex;gap:8px;margin-top:8px}
-.avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#3a3a78,#26265c);border:1px solid var(--line);display:grid;place-items:center;font-size:.66rem;font-weight:700}
-.task__actions{grid-column:2;display:flex;gap:8px;margin-top:10px}
-.task__actions button{font-size:.76rem;font-weight:600;padding:7px 12px;border-radius:8px;background:rgba(255,255,255,.07);border:1px solid var(--line);color:var(--ink);transition:.2s ease}
-.task__actions button:hover{background:rgba(255,255,255,.13)}
-.task__actions .primary{background:var(--teal);color:#04140e;border-color:var(--teal)}
-.task__actions .primary:hover{filter:brightness(1.1)}
-.task--live{border-color:rgba(0,229,160,.5)}
-.task--live:hover{transform:translateY(-3px)}
-.task--done .task__check{background:var(--teal);border-color:var(--teal)}
-.task--done .task__check svg{opacity:1;transform:scale(1)}
-.task--done .task__title{color:var(--muted);text-decoration:line-through}
-.task .chip{grid-column:2;justify-self:start;margin-top:8px}
+/* the day */
+.day{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,6vw,90px)}
+.day__sticky{position:sticky;top:110px;align-self:start}
+.day__sticky h2{font-size:clamp(38px,4.6vw,68px)}
+.day__sticky .lede{margin-top:22px}
+.clockcard{margin-top:34px;display:inline-flex;align-items:center;gap:18px;padding:16px 20px 16px 18px;border-radius:16px;background:var(--paper);border:1px solid var(--line);box-shadow:0 20px 40px -30px rgba(13,13,20,.4)}
+.clockcard__t{font-family:var(--display);font-size:38px;font-weight:600;letter-spacing:-.04em;font-variant-numeric:tabular-nums;line-height:1}
+.clockcard__l{font-size:14px;color:var(--muted);line-height:1.35}
+.clockcard__l b{color:var(--ink);font-weight:600;display:block}
+.live{width:9px;height:9px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(11,155,120,.5);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(11,155,120,0)}100%{box-shadow:0 0 0 0 rgba(11,155,120,0)}}
+.steps{list-style:none;margin:0;padding:0;position:relative}
+.steps::before{content:"";position:absolute;left:15px;top:12px;bottom:12px;width:2px;background:var(--line)}
+.steps__fill{position:absolute;left:15px;top:12px;width:2px;height:0;background:linear-gradient(var(--accent),var(--teal));border-radius:2px}
+.step{position:relative;padding:0 0 clamp(48px,6vw,80px) 62px}
+.step:last-child{padding-bottom:0}
+.step__dot{position:absolute;left:6px;top:4px;width:20px;height:20px;border-radius:50%;background:var(--bg);border:2px solid var(--line-2);transition:border-color .4s,background .4s}
+.step.is-on .step__dot{border-color:var(--accent);background:var(--accent);box-shadow:0 0 0 5px var(--accent-soft)}
+.step.is-now time::after{content:"now";position:relative;top:-.9em;margin-left:10px;letter-spacing:0;font-weight:500;font-family:var(--mono);font-size:11px;color:var(--teal);background:var(--teal-soft);padding:1px 7px;border-radius:99px}
+.step time{font-family:var(--display);font-size:clamp(30px,3vw,40px);font-weight:600;letter-spacing:-.04em;line-height:1;display:block;font-variant-numeric:tabular-nums}
+.step h3{font-size:22px;letter-spacing:-.02em;margin-top:12px}
+.step p{margin-top:8px;color:var(--ink-2);max-width:46ch}
+.step figure{margin:22px 0 0;border-radius:var(--r);overflow:hidden;background:#e9e7e1;aspect-ratio:16/10;position:relative}
+.step figure img{width:100%;height:100%;object-fit:cover}
+.step figcaption{position:absolute;left:12px;bottom:12px;background:rgba(255,255,255,.88);backdrop-filter:blur(8px);font-size:13px;padding:6px 10px;border-radius:8px;color:var(--ink-2)}
+.inline-ui{margin-top:20px;background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 40px -30px rgba(13,13,20,.35);font-size:14px;overflow:hidden;max-width:470px}
+.inline-ui__h{display:flex;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--line);font-weight:600;font-size:13px}
+.inline-ui__h span{font-weight:400;color:var(--muted);font-family:var(--mono);font-size:11.5px}
+.inline-ui ul{list-style:none;margin:0;padding:6px 0}
+.inline-ui li{display:flex;justify-content:space-between;gap:12px;padding:7px 14px;color:var(--ink-2)}
+.inline-ui li b{font-weight:600;color:var(--ink)}
+.pill{font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:99px;white-space:nowrap;align-self:center}
+.pill--red{background:var(--red-soft);color:var(--red)}
+.pill--amber{background:var(--amber-soft);color:var(--amber)}
+.pill--green{background:var(--teal-soft);color:var(--teal)}
+.pill--violet{background:var(--accent-soft);color:var(--accent)}
 
-/* ---------- The day: timeline ---------- */
-.day-wrap{position:relative}
-.timeline{position:relative;list-style:none;margin:0;padding:0}
-.timeline::before{content:"";position:absolute;left:19px;top:12px;bottom:12px;width:2px;background:linear-gradient(var(--teal),var(--violet));opacity:.5}
-.tl-item{position:relative;padding:0 0 64px 72px;max-width:820px}
-.tl-item:last-child{padding-bottom:0}
-.tl-dot{position:absolute;left:8px;top:8px;width:24px;height:24px;border-radius:50%;background:var(--bg);border:2px solid var(--teal);display:grid;place-items:center}
-.tl-dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--teal)}
-.tl-item .when{font-family:var(--font-m);font-size:.8rem;color:var(--teal);letter-spacing:.1em}
-.tl-item h3{font-family:var(--font-d);font-size:clamp(1.7rem,3.2vw,2.9rem);font-weight:700;letter-spacing:-.035em;line-height:1.05;margin-top:8px}
-.tl-item p{margin-top:10px;color:var(--muted);max-width:44ch}
-.eod-ui{position:absolute;right:0;top:70px;width:min(32%,400px);padding:24px;border-radius:var(--r-lg)}
-.eod-ui h3{font-family:var(--font-d);font-size:1.15rem;letter-spacing:-.01em;font-weight:700}
-.eod-ui .who{color:var(--muted);font-size:.82rem;margin-top:5px}
-.eod-ui dl{margin:16px 0 0;display:grid;gap:12px}
-.eod-ui dt{font-size:.74rem;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
-.eod-ui dd{margin:3px 0 0;font-size:.9rem;line-height:1.5;color:var(--ink)}
+/* modules */
+.mods{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.mod{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:30px 30px 0;display:flex;flex-direction:column;overflow:hidden;min-height:400px}
+.mod--w3{grid-column:span 3}
+.mod--w2{grid-column:span 2}
+.mod--w4{grid-column:span 4}
+.mod h3{font-size:24px;letter-spacing:-.025em}
+.mod p{margin-top:10px;color:var(--ink-2);max-width:42ch;font-size:16px}
+.mod__ui{margin-top:auto;padding-top:28px}
+.frag{background:var(--app-bg);color:var(--app-ink);border-radius:14px 14px 0 0;border:1px solid rgba(255,255,255,.08);border-bottom:0;padding:16px;font-size:13px;line-height:1.45;transform:translateY(14px);transition:transform .6s var(--ease)}
+.mod:hover .frag{transform:translateY(0)}
+.frag__h{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;color:var(--app-muted);font-size:11.5px;font-family:var(--mono)}
+.people{display:flex;flex-direction:column;gap:8px}
+.person{display:flex;align-items:center;gap:10px;background:var(--app-panel);border:1px solid var(--app-line);border-radius:10px;padding:8px 10px}
+.person .ava{width:26px;height:26px;font-size:10.5px}
+.person>span{flex:none}.person>span:nth-child(2){flex:1;color:#fff;font-weight:500}
+.deps{display:flex;flex-direction:column;gap:8px}
+.dep{display:flex;justify-content:space-between;align-items:center;background:var(--app-panel);border:1px solid var(--app-line);border-radius:10px;padding:9px 12px}
+.file{display:flex;align-items:center;gap:10px;background:var(--app-panel);border:1px solid var(--app-line);border-radius:10px;padding:10px 12px;margin-top:8px}
+.file b{display:grid;place-items:center;width:30px;height:36px;border-radius:5px;background:#e74c5b;color:#fff;font-size:9.5px;font-weight:700;font-family:var(--mono)}
+.file span{flex:1;color:#fff}
+.file small{color:var(--app-muted);font-family:var(--mono);font-size:11px}
+.lock{display:flex;gap:8px;align-items:center;color:#57e2b2;font-size:12px;margin-top:10px}
+.lock svg{width:14px;height:14px}
+.draft{background:var(--app-panel);border:1px solid var(--app-line);border-radius:10px;padding:12px 14px;color:var(--app-ink);min-height:96px}
+.draft small{display:block;color:var(--app-muted);font-family:var(--mono);font-size:10.5px;margin-bottom:6px}
+.usage{display:flex;justify-content:space-between;margin-top:10px;color:var(--app-muted);font-size:11.5px;font-family:var(--mono)}
 
-/* ---------- Modules: bento ---------- */
-.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
-.bento .card{padding:28px;border-radius:var(--r-lg);min-height:230px;display:flex;flex-direction:column}
-.card h3{font-family:var(--font-d);font-size:1.3rem;font-weight:700;letter-spacing:-.02em;margin-top:auto}
-.card>p{margin-top:8px;color:var(--muted);font-size:.94rem}
-.card .icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--teal-soft);border:1px solid rgba(0,229,160,.3);color:var(--teal);margin-bottom:22px}
-.card .icon svg{width:22px;height:22px}
-.b-people{grid-column:span 3}
-.b-fields{grid-column:span 3;background:linear-gradient(150deg,rgba(139,123,255,.12),rgba(255,255,255,.03))}
-.b-deps{grid-column:span 2}
-.b-progress{grid-column:span 2}
-.b-files{grid-column:span 2}
-.b-ai{grid-column:span 6;flex-direction:row !important;align-items:center;gap:36px;min-height:0;background:linear-gradient(120deg,rgba(0,229,160,.1),rgba(79,216,255,.07),rgba(139,123,255,.1))}
-.b-ai .icon{margin-bottom:0;flex:none}
-.b-ai h3{margin-top:0}
-.b-ai .chips{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
-.mini-list{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:8px}
-.mini-list li{display:flex;align-items:center;gap:10px;font-size:.86rem;background:rgba(255,255,255,.045);border:1px solid var(--line-soft);border-radius:10px;padding:9px 12px}
-.mini-list .avatar{margin-left:auto}
-.pbar{height:8px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin-bottom:18px}
-.pbar i{display:block;height:100%;width:60%;border-radius:inherit;background:linear-gradient(90deg,var(--teal),var(--cyan))}
-.kv{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
-.kv div{background:rgba(255,255,255,.045);border:1px solid var(--line-soft);border-radius:10px;padding:9px 12px;font-size:.86rem}
-.kv small{display:block;color:var(--muted);font-size:.72rem}
+/* made for here */
+.here{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:stretch}
+.here__photo{position:relative;border-radius:22px;overflow:hidden;min-height:620px;background:#d9d4c8}
+.here__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 35%}
+.here__photo .offline{position:absolute;left:20px;right:20px;bottom:20px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;font-size:14px;box-shadow:0 16px 40px -20px rgba(0,0,0,.4)}
+.here__photo .offline b{font-weight:600}
+.here__photo .offline span{color:var(--muted);font-size:13px;display:block}
+.sig{display:flex;gap:2px;align-items:flex-end;height:16px}
+.sig i{width:4px;border-radius:1px;background:var(--line-2)}
+.sig i:nth-child(1){height:5px;background:var(--amber)}.sig i:nth-child(2){height:8px}.sig i:nth-child(3){height:12px}.sig i:nth-child(4){height:16px}
+.queue{font-family:var(--mono);font-size:12px;color:var(--amber);background:var(--amber-soft);padding:3px 9px;border-radius:99px;transition:all .4s}
+.queue.is-sent{color:var(--teal);background:var(--teal-soft)}
+.facts{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);margin-top:auto}
+.fact{padding:24px 24px 24px 0;border-bottom:1px solid var(--line)}
+.fact:nth-child(odd){border-right:1px solid var(--line)}
+.fact:nth-child(even){padding-left:24px}
+.fact b{display:block;font-family:var(--display);font-size:22px;letter-spacing:-.02em;font-weight:600}
+.fact span{display:block;color:var(--ink-2);font-size:15px;margin-top:6px}
+.here__text{display:flex;flex-direction:column}
+.here__text h2{font-size:clamp(38px,4.6vw,68px)}
+.here__text .lede{margin:22px 0 40px}
 
-/* ---------- Structure ---------- */
-.structure .lead{margin-top:22px;max-width:52ch;color:var(--muted);font-size:1.15rem}
-.mosaic{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:56px;align-items:start}
-.org-ui{grid-column:span 8;padding:30px;border-radius:var(--r-lg)}
-.org-ui__top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
-.org-ui__top strong{font-family:var(--font-d);font-size:1.35rem;letter-spacing:-.02em}
-.org-ui__top span{color:var(--muted);font-size:.9rem}
-.org-stats{display:flex;gap:44px;margin-top:24px;flex-wrap:wrap}
-.org-stats b{display:block;font-family:var(--font-d);font-size:1.9rem;font-weight:700;font-variant-numeric:tabular-nums}
-.org-stats span{font-size:.8rem;color:var(--muted)}
-.org-tree{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
-.org-node{background:rgba(255,255,255,.045);border:1px solid var(--line-soft);border-radius:14px;padding:16px;font-size:.88rem}
-.org-node b{font-family:var(--font-d);font-size:1rem;display:block}
-.org-node .who{margin-top:12px;display:grid;gap:2px;color:var(--muted);font-size:.8rem}
-.org-node .who span:first-child{color:var(--ink)}
-.org-node .seats{margin-top:12px;font-size:.78rem;color:var(--muted)}
-.org-group{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(120deg,rgba(0,229,160,.14),rgba(139,123,255,.1));border-color:rgba(0,229,160,.3)}
-.mosaic__side{grid-column:span 4;display:grid;gap:18px}
-.tile{border-radius:var(--r-lg);background:linear-gradient(150deg,var(--teal),var(--cyan));aspect-ratio:4/2.6;display:grid;place-items:center;position:relative;overflow:hidden}
-.tile svg{width:62%}
-.tile figcaption{position:absolute;left:18px;bottom:14px;font-size:.82rem;font-weight:600;color:#04140e}
-.facts-card{padding:24px;border-radius:var(--r-lg)}
-.facts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0}
-.facts div{border-top:1px solid var(--line-soft);padding-top:12px}
-.facts dt{font-size:.76rem;color:var(--muted)}
-.facts dd{margin:3px 0 0;font-size:.98rem;font-weight:600}
+/* structure */
+.struct{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(28px,5vw,72px);align-items:center}
+.struct__text h2{font-size:clamp(38px,4.6vw,68px)}
+.struct__text .lede{margin-top:22px}
+.seg{display:inline-flex;margin-top:32px;background:#eceae4;border-radius:999px;padding:4px}
+.seg button{border:0;background:none;padding:9px 18px;border-radius:999px;font-weight:600;font-size:15px;color:var(--ink-2);transition:background .2s,color .2s,box-shadow .2s}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 2px 8px -3px rgba(13,13,20,.25)}
+.struct__photo{border-radius:20px;overflow:hidden;margin-top:36px;aspect-ratio:4/3;position:relative}
+.struct__photo img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.org{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,3vw,34px);box-shadow:0 30px 60px -40px rgba(13,13,20,.35)}
+.org__top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;gap:12px}
+.org__top b{font-family:var(--display);font-size:22px;letter-spacing:-.02em}
+.org__top span{color:var(--muted);font-size:14px}
+.org__group{border:1.5px dashed var(--line-2);border-radius:16px;padding:16px;transition:border-color .4s,padding .5s var(--ease)}
+.org__gh{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:14px;gap:10px}
+.org__gh b{font-family:var(--display);font-size:18px;letter-spacing:-.02em}
+.org__gh span{color:var(--muted)}
+.org__cos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.co{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fbfaf7;transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.co b{display:block;font-weight:600;font-size:15px}
+.co span{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.co .seats{margin-top:12px}
+.co .seats i{display:block;height:5px;background:#ebe9e3;border-radius:99px;overflow:hidden;margin-top:6px}
+.co .seats i::after{content:"";display:block;height:100%;width:var(--w);background:var(--accent);border-radius:inherit}
+.co small{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.wall{display:flex;gap:10px;align-items:center;margin-top:16px;font-size:14px;color:var(--ink-2)}
+.wall svg{width:16px;height:16px;color:var(--teal);flex:none}
+.org[data-mode="single"] .org__group{border-color:transparent;padding:0}
+.org[data-mode="single"] .org__gh{display:none}
+.org[data-mode="single"] .org__cos{grid-template-columns:1fr}
+.org[data-mode="single"] .co:not(:first-child){display:none}
+.org[data-mode="single"] .wall--group{display:none}
+.org:not([data-mode="single"]) .wall--single{display:none}
 
-/* ---------- Pricing ---------- */
-.pricing-card{padding:14px;border-radius:28px;overflow:hidden}
-table.plans{width:100%;border-collapse:collapse;font-size:1.05rem}
-.plans th,.plans td{text-align:left;vertical-align:top;padding:22px 24px}
-.plans thead th{vertical-align:bottom;border-bottom:1px solid var(--line-soft)}
-.plans thead th:first-child h2{font-size:var(--step-head)}
-.plan-name{display:block;font-family:var(--font-d);font-size:clamp(1.5rem,2.4vw,2.2rem);font-weight:700;letter-spacing:-.03em;line-height:1}
-.price{display:block;font-size:clamp(1.5rem,2.4vw,2.2rem);font-weight:500;letter-spacing:-.03em;margin-top:6px;font-variant-numeric:tabular-nums}
-.per{display:block;font-size:.85rem;color:var(--muted);margin-top:5px}
-.plans tbody th{font-weight:400;color:var(--muted);width:30%}
-.plans tbody tr:nth-child(odd) td,.plans tbody tr:nth-child(odd) th{background:rgba(255,255,255,.02)}
-.plans .rec{position:relative}
-.plans thead th.rec{color:#04140e}
-.plans thead th.rec .per{color:rgba(4,20,14,.7)}
-.plans td.rec,.plans tbody th.rec{background:linear-gradient(160deg,rgba(0,229,160,.9),rgba(0,200,220,.85)) !important;color:#04140e;font-weight:500}
-.plans td.rec .button{background:#05050f;color:var(--ink)}
-.plans td.rec .button:hover{box-shadow:0 12px 40px -10px rgba(0,0,0,.6)}
-.plans .plan-btn{background:rgba(255,255,255,.07);color:var(--ink);border:1px solid var(--line)}
-.plans .plan-btn:hover{background:rgba(255,255,255,.13);box-shadow:none}
-.plans .button{min-height:2.9rem;font-size:.92rem}
-.pricing-note{margin-top:18px;font-size:.85rem;color:var(--muted)}
-.plans-mobile{display:none}
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
+.trust div{padding:30px 30px 34px 0;border-bottom:1px solid var(--line)}
+.trust div+div{padding-left:30px;border-left:1px solid var(--line)}
+.trust div:nth-child(3n+1){padding-left:0;border-left:0}
+.trust b{display:block;font-family:var(--display);font-size:21px;letter-spacing:-.02em;font-weight:600}
+.trust span{display:block;color:var(--ink-2);margin-top:8px;font-size:15.5px}
 
-/* ---------- FAQ ---------- */
-.faq .axis-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(32px,5vw,80px);align-items:start}
-.faq__side{position:sticky;top:110px;display:grid;gap:24px}
-.chat-ui{padding:20px;border-radius:var(--r-lg);display:grid;gap:12px;font-size:.9rem}
-.bubble{padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid var(--line-soft);line-height:1.5}
-.bubble .from{font-family:var(--font-m);font-size:.68rem;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em}
-.bubble--me{justify-self:end;background:rgba(139,123,255,.14);border-color:rgba(139,123,255,.3);max-width:85%}
-.bubble b{color:var(--teal)}
-details{border-bottom:1px solid var(--line-soft)}
-details summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 4px;cursor:pointer;font-family:var(--font-d);font-weight:600;font-size:1.08rem;letter-spacing:-.01em;transition:color .2s ease}
-details summary::-webkit-details-marker{display:none}
-details summary:hover{color:var(--teal)}
-details summary .pm{flex:none;width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:.35s var(--ease);font-weight:400;font-size:1rem;color:var(--muted)}
-details[open] summary .pm{transform:rotate(45deg);background:var(--teal);border-color:var(--teal);color:#04140e}
-details .a{padding:0 4px 22px;color:var(--muted);max-width:60ch;font-size:.97rem}
+/* pricing */
+.price{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(28px,5vw,72px);align-items:start}
+.price h2{font-size:clamp(38px,4.6vw,68px)}
+.price .lede{margin-top:22px}
+.calc{background:var(--ink);color:#fff;border-radius:24px;padding:clamp(24px,3.4vw,40px);box-shadow:0 40px 80px -40px rgba(13,13,20,.6)}
+.calc label{display:flex;justify-content:space-between;align-items:baseline;font-size:15px;color:#bdbccc}
+.calc label output{font-family:var(--display);font-size:44px;color:#fff;letter-spacing:-.04em;font-weight:600;font-variant-numeric:tabular-nums}
+.calc input[type=range]{width:100%;margin:18px 0 6px;-webkit-appearance:none;appearance:none;height:6px;border-radius:99px;background:linear-gradient(90deg,#7c72ff var(--p,10%),#2b2b3b var(--p,10%));outline-offset:6px}
+.calc input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;border:0;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+.calc input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#fff;border:0}
+.calc__ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:#7d7c90}
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:28px}
+.plan{border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px;transition:background .3s,border-color .3s,opacity .3s}
+.plan h3{font-size:17px;letter-spacing:-.01em}
+.plan .amt{font-family:var(--display);font-size:clamp(19px,1.7vw,24px);font-weight:600;letter-spacing:-.03em;margin-top:10px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.plan .amt small{font-family:var(--body);font-size:12px;color:#9998ac;font-weight:400;letter-spacing:0}
+.plan p{font-size:12.5px;color:#a9a8bb;margin-top:6px;line-height:1.45}
+.plan.is-best{background:rgba(124,114,255,.14);border-color:#7c72ff}
+.plan.is-out{opacity:.38}
+.plan .tag{display:inline-block;font-family:var(--mono);font-size:10.5px;color:#cfcaff;background:rgba(124,114,255,.25);padding:2px 7px;border-radius:99px;margin-left:6px;vertical-align:2px}
+.calc__foot{margin-top:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:13.5px;color:#a9a8bb}
+.calc .btn{background:#fff;color:var(--ink)}
+.incl{margin-top:34px;list-style:none;padding:0;display:grid;gap:12px}
+.incl li{display:flex;gap:12px;align-items:flex-start;color:var(--ink-2)}
+.incl svg{width:18px;height:18px;color:var(--teal);flex:none;margin-top:4px}
 
-/* ---------- Close ---------- */
-.close{margin-top:clamp(110px,13vw,190px);position:relative;overflow:hidden;border-radius:36px 36px 0 0;background:linear-gradient(160deg,#0e0e2c,#05050f 70%);border:1px solid var(--line);border-bottom:0;padding:clamp(80px,12vw,150px) var(--margin) clamp(48px,7vw,80px)}
-.close::before{content:"";position:absolute;width:60vw;height:60vw;left:50%;top:-40%;transform:translateX(-50%);background:radial-gradient(circle,rgba(0,229,160,.16),transparent 60%);pointer-events:none}
-.close h2{font-size:clamp(3.2rem,9.5vw,9rem);text-align:center;line-height:.95}
-.close__foot{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end;margin-top:clamp(56px,8vw,110px);position:relative}
-.close__foot p{max-width:44ch;color:var(--muted);font-size:1.12rem}
+/* faq */
+.faq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,72px)}
+.faq h2{font-size:clamp(38px,4.6vw,68px)}
+.faq__list{border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;align-items:center;padding:22px 0;font-family:var(--display);font-size:20px;font-weight:600;letter-spacing:-.015em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{flex:none;width:28px;height:28px;border-radius:50%;border:1px solid var(--line-2);position:relative;transition:transform .3s var(--ease),background .2s}
+.faq summary i::before,.faq summary i::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:1.5px;background:var(--ink);transform:translate(-50%,-50%)}
+.faq summary i::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq details[open] summary i{transform:rotate(45deg);background:var(--ink)}
+.faq details[open] summary i::before,.faq details[open] summary i::after{background:#fff}
+.faq details p{padding:0 48px 24px 0;color:var(--ink-2);max-width:62ch}
 
-/* ---------- Footer ---------- */
-.footer{background:var(--ink);color:var(--bg);padding:56px var(--margin) 24px;position:relative;z-index:1}
-.footer__cols{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;font-size:.98rem;max-width:1440px;margin-inline:auto}
-.footer__cols ul{list-style:none;margin:0;padding:0;display:grid;gap:7px;align-content:start}
-.footer__cols li:first-child{font-weight:700;font-family:var(--font-d)}
-.footer__cols li:not(:first-child){color:#4c4c6e}
-.footer__cols a{text-decoration:none}
-.footer__cols a:hover{text-decoration:underline}
-.footer__mark{width:100%;height:auto;fill:var(--bg);margin-top:48px;max-width:1440px;margin-inline:auto}
-.footer__legal{margin:16px auto 0;font-size:.8rem;color:#4c4c6e;max-width:1440px}
+/* close */
+.close{margin-top:clamp(110px,14vw,190px);position:relative;min-height:min(820px,100vh);display:grid;align-items:end;color:#fff;isolation:isolate;overflow:hidden}
+.close img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.close::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,10,18,.15) 0%,rgba(10,10,18,.25) 45%,rgba(10,10,18,.82) 100%)}
+.close__in{padding-bottom:clamp(56px,8vw,100px);display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end}
+.close h2{font-size:clamp(52px,8vw,124px);letter-spacing:-.05em;line-height:.94}
+.close p{margin-top:20px;font-size:19px;color:rgba(255,255,255,.86);max-width:44ch}
+.close .btn--dark{background:#fff;color:var(--ink)}
+.close .btn--ghost{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff}
 
-/* ---------- Motion ---------- */
-@media (prefers-reduced-motion:no-preference){
-  .js .lines [data-line]{transform:translateY(108%);animation:line-up 1s var(--ease) forwards;animation-delay:calc(var(--i)*120ms + 250ms)}
-  .js [data-rise]{opacity:0;transform:translateY(22px);animation:rise .9s var(--ease) forwards;animation-delay:calc(var(--i,0)*100ms + 700ms)}
-  .js [data-reveal]{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform 1s var(--ease);transition-delay:calc(var(--i,0)*90ms)}
-  .js [data-reveal].is-in{opacity:1;transform:none}
-}
-@keyframes line-up{to{transform:none}}
-@keyframes rise{to{opacity:1;transform:none}}
+footer{background:#0d0d14;color:#b9b8c8;padding:56px 0 40px;font-size:15px}
+.foot{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:32px}
+.foot .logo{color:#fff}
+.foot .logo i::after{background:#0d0d14}
+.foot p{margin-top:14px;max-width:32ch;color:#8e8da2}
+.foot h4{margin:0 0 14px;font-size:13px;color:#fff;font-weight:600}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.foot a{text-decoration:none;color:#b9b8c8}
+.foot a:hover{color:#fff}
+.foot__base{margin-top:48px;padding-top:22px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:#77768a;font-size:13px}
 
-/* ---------- Tablet ---------- */
+/* reveal */
+.js [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--i,0) * 90ms)}
+.js [data-reveal].is-in{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
 @media (max-width:1080px){
-  .hero__grid{grid-template-columns:1fr;gap:56px}
-  .hero{min-height:0;padding-top:130px}
-  .hero__stage{max-width:640px}
-  .eod-ui{position:static;width:auto;margin-top:40px}
-  .bento{grid-template-columns:repeat(2,1fr)}
-  .b-people,.b-fields,.b-ai{grid-column:span 2}
-  .b-deps,.b-progress,.b-files{grid-column:span 2;min-height:0}
-  .b-ai{flex-direction:column !important;align-items:flex-start}
-  .b-ai .chips{margin-left:0}
-  .lifecycle{grid-template-columns:1fr}
-  .org-ui,.mosaic__side{grid-column:1/-1}
-  .faq .axis-grid{grid-template-columns:1fr}
-  .faq__side{position:static}
-  .panel__body{grid-template-columns:1fr}
-  .needs{border-left:0;padding-left:0;border-top:1px solid var(--line-soft);padding-top:16px}
-}
-@media (max-width:900px){
   .nav__links{display:none}
+  .app__body{grid-template-columns:184px 1fr}
+  .cols{grid-template-columns:1fr}
+  .mods{grid-template-columns:1fr 1fr}
+  .mod--w3,.mod--w2,.mod--w4{grid-column:span 1}
+  .mod--wide-t{grid-column:1/-1}
 }
-/* ---------- Phone ---------- */
-@media (max-width:680px){
-  :root{--margin:20px}
-  body{font-size:15.5px}
-  .hero{padding-top:110px}
-  .hero h1{font-size:16vw}
-  .hero__meta{gap:22px}
-  .clock{position:relative;left:0;bottom:0;width:100%;margin-top:16px;animation:none}
-  .orbit{display:none}
+@media (max-width:860px){
+  body{font-size:16px}
+  .sec__head,.day,.here,.struct,.price,.faq{grid-template-columns:1fr}
+  .sec__head .lede{justify-self:start}
+  .day__sticky{position:static}
+  .here__photo{min-height:520px}
+  .trust{grid-template-columns:1fr}
+  .trust div,.trust div+div{padding:24px 0;border-left:0}
+  .close__in{grid-template-columns:1fr}
+  .foot{grid-template-columns:1fr 1fr}
+  .foot>div:first-child{grid-column:1/-1}
+}
+@media (max-width:720px){
+  .nav .btn{display:none}
+  .hero__photo{height:880px}
+  .hero__photo img{object-position:46% 64%}
+  .hero__photo::after{background:linear-gradient(180deg,rgba(246,245,241,.94) 0%,rgba(246,245,241,.86) 52%,rgba(246,245,241,.3) 68%,rgba(246,245,241,0) 76%,var(--bg) 98%)}
+  .hero__eyebrow{font-size:13px}
+  .app__body{grid-template-columns:1fr;min-height:0}
+  .side{flex-direction:row;overflow-x:auto;padding:8px;gap:4px;border-right:0;border-bottom:1px solid var(--app-line);scrollbar-width:none}
+  .side::-webkit-scrollbar{display:none}
+  .side__org,.side__foot{display:none}
+  .tab{width:auto;flex:none;padding:8px 12px}
+  .tab .count{display:none}
+  .view{padding:18px 16px}
   .stats{grid-template-columns:1fr 1fr}
-  .bento{grid-template-columns:1fr}
-  .b-people,.b-fields,.b-deps,.b-progress,.b-files,.b-ai{grid-column:1}
-  .org-tree{grid-template-columns:1fr}
-  .org-stats{gap:24px}
+  .view__head{flex-direction:column;align-items:flex-start}
+  .row{padding:11px 12px;gap:10px}
+  .mods{grid-template-columns:1fr}
+  .mod{min-height:0;padding:24px 22px 0}
   .facts{grid-template-columns:1fr}
-  .close__foot{grid-template-columns:1fr}
-  .close__foot .button{justify-self:stretch}
-  table.plans{display:none}
-  .plans-mobile{display:grid;gap:18px;margin-top:24px}
-  .plan-card{padding:26px 22px;border-radius:var(--r-lg)}
-  .plan-card.rec{background:linear-gradient(150deg,rgba(0,229,160,.92),rgba(0,200,220,.85));color:#04140e}
-  .plan-card h3{font-family:var(--font-d);font-size:1.7rem;letter-spacing:-.03em}
-  .plan-card .price{font-size:1.7rem;font-weight:500;margin-top:4px;font-variant-numeric:tabular-nums}
-  .plan-card dl{margin:18px 0 20px;display:grid;gap:10px}
-  .plan-card dt{font-size:.82rem;color:var(--muted)}
-  .plan-card.rec dt{color:rgba(4,20,14,.65)}
-  .plan-card dd{margin:2px 0 0;font-weight:600}
-  .plan-card .button{width:100%}
-  .plan-card:not(.rec) .button{background:rgba(255,255,255,.07);color:var(--ink);border:1px solid var(--line)}
-  .plan-card.rec .button{background:#05050f;color:var(--ink)}
-  .footer__cols{grid-template-columns:1fr 1fr;row-gap:32px}
-  .nav .button{display:none}
+  .fact,.fact:nth-child(even){padding:20px 0;border-right:0}
+  .org__cos{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr}
+  .plan{display:grid;grid-template-columns:1fr auto;align-items:center;gap:0 12px}
+  .plan p{grid-column:1/-1}
+  .plan .amt{margin-top:0}
+  .faq details p{padding-right:0}
+  .stage__hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .js .app,.js [data-reveal]{opacity:1;transform:none}
 }
 </style>
 </head>
 <body>
-<div class="sky" aria-hidden="true"><i class="blob blob--a"></i><i class="blob blob--b"></i><i class="blob blob--c"></i></div>
-<div class="grain" aria-hidden="true"></div>
-<div class="progress" id="progress" aria-hidden="true"></div>
 
-<nav class="nav" id="nav" aria-label="Main">
-  <div class="nav__in">
-    <a class="wordmark" href="/"><i></i>NEXUS</a>
-    <div class="nav__links">
-      <a href="#showcase">Product</a>
-      <a href="#the-day">How it runs</a>
-      <a href="#modules">Modules</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-tasks" viewBox="0 0 16 16"><rect x="2" y="2.5" width="12" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 8l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-report" viewBox="0 0 16 16"><path d="M4 1.8h5.5L12.5 5v9.2H4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M6 8.5h4.5M6 11h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-goal" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+  <symbol id="i-ai" viewBox="0 0 16 16"><path d="M8 1.8l1.5 3.9 3.9 1.5-3.9 1.5L8 12.6 6.5 8.7 2.6 7.2l3.9-1.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M12.8 11.2l.6 1.5 1.5.6-1.5.6-.6 1.5-.6-1.5-1.5-.6 1.5-.6z" fill="currentColor"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 16 16"><rect x="3" y="7" width="10" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 7V5a2.5 2.5 0 015 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 16 16"><path d="M8 1.8l5 2v4c0 3.2-2.2 5.4-5 6.4-2.8-1-5-3.2-5-6.4v-4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M5.8 8.2l1.6 1.6 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="logo" href="/" aria-label="NEXUS home"><i></i>NEXUS</a>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#product">Product</a>
+      <a href="#day">How a day runs</a>
+      <a href="#inside">What's inside</a>
       <a href="#pricing">Pricing</a>
       <a href="#questions">Questions</a>
-    </div>
+    </nav>
     <div class="nav__right">
-      <a class="nav__signin link" href="https://app.nexusabion.com" style="font-size:.92rem">Sign in</a>
-      <a class="button" href="mailto:abionnexus@gmail.com?subject=NEXUS%20access&amp;body=Company%20or%20team%20name%3A%0AHow%20many%20people%3A%0AMore%20than%20one%20company%3F%20How%20many%3A%0A">Request access</a>
-    </div>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="hero__grid wrap" style="max-width:none">
-    <div class="hero__talk">
-      <span class="eyebrow" data-rise style="--i:0"><i></i>Operations · Teams · Companies · Groups</span>
-      <h1 class="lines" aria-label="Run the whole day.">
-        <span class="line"><span data-line style="--i:0">Run the</span></span>
-        <span class="line"><span data-line style="--i:1"><span class="grad">whole day.</span></span></span>
-      </h1>
-      <p class="lead" data-rise style="--i:1">The operations platform for teams and companies of any size — and for groups that run several. <b>Every task, report and goal</b> on one screen, from the morning digest to the last report.</p>
-      <div class="hero__cta" data-rise style="--i:2">
-        <a class="button" href="mailto:abionnexus@gmail.com?subject=NEXUS%20access&amp;body=Company%20or%20team%20name%3A%0AHow%20many%20people%3A%0AMore%20than%20one%20company%3F%20How%20many%3A%0A">Request access
-          <svg viewBox="0 0 16 16" fill="none"><path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <span class="hero__signin">Already on NEXUS? <a class="link" href="https://app.nexusabion.com">Sign in</a></span>
-      </div>
-      <div class="hero__meta" data-rise style="--i:3">
-        <div><b>08:05</b><span>The morning digest, daily</span></div>
-        <div><b>Any size</b><span>One team to a whole group</span></div>
-        <div><b>₦0</b><span>To start, billed in naira</span></div>
-      </div>
-    </div>
-
-    <div class="hero__stage" data-rise style="--i:2">
-      <div class="orbit" aria-hidden="true"></div>
-      <div class="panel" id="tilt">
-        <div class="panel__bar"><i></i><i></i><i></i><span>nexus · morning digest</span></div>
-        <div class="panel__body">
-          <div>
-            <h3>Good morning, Ayo.</h3>
-            <p class="who">Three companies, 17 people. Here is where things stand.</p>
-            <div class="stats">
-              <div class="stat"><b>31</b><span>Open tasks</span></div>
-              <div class="stat stat--warn"><b>4</b><span>Overdue</span></div>
-              <div class="stat"><b>3</b><span>Due today</span></div>
-              <div class="stat"><b>2</b><span>EOD reports missing</span></div>
-            </div>
-          </div>
-          <div class="needs">
-            <h4>Needs you today</h4>
-            <div class="need"><span class="t">Renew Abuja office lease</span><span class="chip chip--over">2 days over</span><span class="m">ABION Industries · Amara Chukwu</span></div>
-            <div class="need"><span class="t">Partner MoU: FCT logistics</span><span class="chip chip--today">Due today</span><span class="m">ABION Labs · Femi Balogun</span></div>
-            <div class="need"><span class="t">Q4 harvest forecast to board</span><span class="chip chip--today">Due today</span><span class="m">ABION Agro · Halima Bello</span></div>
-            <div class="need"><span class="t">Publish November content plan</span><span class="chip chip--plain">Fri 14 Nov</span><span class="m">ABION Studios · Chidi Okafor</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="clock" id="clock" aria-live="polite">
-        <div class="clock__label"><i></i>Live · Abuja · WAT</div>
-        <div class="clock__time"><span id="clock-time">08:05</span> <em>WAT</em></div>
-        <p class="clock__next" id="clock-next">Every working day starts with the morning digest at 08:05.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee__track">
-      <span>Tasks &amp; assignments</span><span>End-of-day reports</span><span>Morning digest at 08:05</span><span>Goals &amp; tracking</span><span>Partnerships pipeline</span><span>AI analyst</span><span>Roles &amp; permissions</span><span>Offline-first</span>
-      <span>Tasks &amp; assignments</span><span>End-of-day reports</span><span>Morning digest at 08:05</span><span>Goals &amp; tracking</span><span>Partnerships pipeline</span><span>AI analyst</span><span>Roles &amp; permissions</span><span>Offline-first</span>
+      <a class="signin" href="https://app.nexusabion.com">Sign in</a>
+      <a class="btn btn--dark" href="#access">Request access</a>
     </div>
   </div>
 </header>
 
 <main>
-<!-- ======================= Showcase ======================= -->
-<section class="section wrap" id="showcase" aria-labelledby="showcase-title">
-  <div class="sec-head">
-    <div>
-      <p class="kicker" data-reveal>The product</p>
-      <h2 id="showcase-title" data-reveal>A task,<br>start to finish.</h2>
+<!-- ============ HERO ============ -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__photo" aria-hidden="true">
+    <img src="/img/abuja-dawn.webp" srcset="/img/abuja-dawn-sm.webp 900w, /img/abuja-dawn.webp 1800w" sizes="100vw" alt="" fetchpriority="high">
+  </div>
+  <div class="wrap hero__copy">
+    <a class="hero__eyebrow" href="#day" data-reveal><b>08:05</b>Your day, sorted before you sit down</a>
+    <h1 id="hero-title" data-reveal style="--i:1">Run the whole <em>working&nbsp;day.</em></h1>
+    <p class="hero__sub" data-reveal style="--i:2">NEXUS is one place for your team's tasks, daily reports, goals and partners. It runs the routine for you: the morning digest, the afternoon close, the end-of-day report.</p>
+    <div class="hero__cta" data-reveal style="--i:3">
+      <a class="btn btn--dark" href="#access">Request access <svg><use href="#i-arrow"/></svg></a>
+      <a class="btn btn--ghost" href="#product">Try the live demo</a>
     </div>
-    <p data-reveal style="--i:1">One task, three moments. Assigned to the right people, worked in the open, closed with a record. Tick the live task to feel it.</p>
+    <p class="hero__note" data-reveal style="--i:4">Already on NEXUS? <a href="https://app.nexusabion.com">Sign in</a></p>
   </div>
 
-  <div class="lifecycle">
-    <div class="glass glow-card state-card" data-reveal>
-      <span class="num">01</span>
-      <h3>Assigned</h3>
-      <div class="task">
-        <span class="task__check" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4"/></svg></span>
-        <div class="task__title">Renew Abuja office lease</div>
-        <div class="task__meta">ABION Industries · High · due Thu 6 Nov</div>
-        <div class="task__people"><span class="avatar" title="Amara Chukwu">AC</span><span class="avatar" title="Femi Balogun">FB</span></div>
-      </div>
-    </div>
+  <!-- the live demo -->
+  <div class="stage" id="product">
+    <div class="app" id="app" role="region" aria-label="Live demo of the NEXUS app. Every button works.">
+      <div class="app__bar" aria-hidden="true"><i></i><i></i><i></i><span class="app__url"><svg><use href="#i-lock"/></svg>app.nexusabion.com</span></div>
+      <div class="app__body">
+        <div class="side" role="tablist" aria-label="App sections">
+          <div class="side__org"><b>AI</b><span>ABION Industries<small>17 people · Starter</small></span></div>
+          <button class="tab" role="tab" aria-selected="true" aria-controls="v-today" id="t-today"><svg><use href="#i-sun"/></svg>Today</button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="v-tasks" id="t-tasks"><svg><use href="#i-tasks"/></svg>Tasks<span class="count" data-open-count>6</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="v-reports" id="t-reports"><svg><use href="#i-report"/></svg>Reports<span class="count">15/17</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="v-goals" id="t-goals"><svg><use href="#i-goal"/></svg>Goals</button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="v-ai" id="t-ai"><svg><use href="#i-ai"/></svg>Ask AI</button>
+          <div class="side__foot"><span class="dot"></span>Synced · works offline</div>
+        </div>
 
-    <div class="glass glow-card state-card" data-reveal style="--i:1">
-      <span class="num">02 · try it — tick the box</span>
-      <h3>In hand</h3>
-      <div class="task task--live" id="live-task">
-        <button class="task__check" id="live-check" aria-label="Mark “Renew Abuja office lease” as done" aria-pressed="false"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4"/></svg></button>
-        <div class="task__title">Renew Abuja office lease</div>
-        <div class="task__meta" id="live-meta">Signed copy uploaded · waiting on Femi's review</div>
-        <div class="task__actions"><button type="button" class="primary" id="live-done">Mark done</button><button type="button">Hand to AI</button></div>
-      </div>
-    </div>
+        <!-- Today -->
+        <div class="view" role="tabpanel" id="v-today" aria-labelledby="t-today">
+          <div class="view__head">
+            <div><h3 id="greet">Good morning, Ayo.</h3><p>Your morning digest · <span data-today>Today</span> · sent at 08:05</p></div>
+            <span class="chip chip--violet">Digest</span>
+          </div>
+          <div class="stats">
+            <div class="stat"><b data-stat="open">6</b><span>Open tasks</span></div>
+            <div class="stat is-red"><b data-stat="overdue">1</b><span>Overdue</span></div>
+            <div class="stat is-amber"><b data-stat="today">3</b><span>Due today</span></div>
+            <div class="stat"><b>2</b><span>EOD reports missing</span></div>
+          </div>
+          <div class="cols">
+            <div class="panel">
+              <div class="panel__t"><span>NEEDS YOU TODAY</span><span>tick one</span></div>
+              <div data-list="today"></div>
+            </div>
+            <div class="panel">
+              <div class="panel__t"><span>FROM THE AI ANALYST</span></div>
+              <div class="mini-ai">
+                <p>Operations has the only overdue task and one blocked one. Finance has two deadlines today.</p>
+                <small>Goal: two state partners signed</small>
+                <div class="bar"><i data-w="50"></i></div>
+                <small>1 of 2 signed · the FCT MoU is due today</small>
+                <div class="task-actions"><button class="abtn" data-go="ai">Ask a follow-up</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    <div class="glass glow-card state-card" data-reveal style="--i:2">
-      <span class="num">03</span>
-      <h3>Done</h3>
-      <div class="task task--done">
-        <span class="task__check" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4"/></svg></span>
-        <div class="task__title">Renew Abuja office lease</div>
-        <div class="task__meta">Closed by Amara Chukwu at 11:42 · in tonight's EOD report</div>
-        <span class="chip chip--ok">Done</span>
+        <!-- Tasks -->
+        <div class="view" role="tabpanel" id="v-tasks" aria-labelledby="t-tasks" hidden>
+          <div class="view__head">
+            <div><h3>Tasks</h3><p><span data-open-count>6</span> open · <span data-done-count>0</span> done today</p></div>
+            <div class="filters" role="group" aria-label="Filter tasks">
+              <button class="filter" aria-pressed="true" data-filter="all">All</button>
+              <button class="filter" aria-pressed="false" data-filter="Operations">Operations</button>
+              <button class="filter" aria-pressed="false" data-filter="Finance">Finance</button>
+              <button class="filter" aria-pressed="false" data-filter="Partnerships">Partnerships</button>
+            </div>
+          </div>
+          <div class="panel"><div data-list="all"></div></div>
+          <div class="task-actions" style="margin-top:14px">
+            <button class="abtn abtn--primary" id="handoff"><svg><use href="#i-ai"/></svg>Hand “Partner MoU” to AI</button>
+            <span class="chip" style="align-self:center">Draft comes back for you to approve</span>
+          </div>
+        </div>
+
+        <!-- Reports -->
+        <div class="view" role="tabpanel" id="v-reports" aria-labelledby="t-reports" hidden>
+          <div class="view__head">
+            <div><h3>End-of-day reports</h3><p>Yesterday · 15 of 17 filed by 18:05</p></div>
+            <button class="abtn" id="remind">Remind the 2 who haven't filed</button>
+          </div>
+          <div class="panel">
+            <div class="report"><span class="ava" style="background:#7b5cff">AC</span><div><h4>Amara Chukwu <span>· Operations · 17:52</span></h4><dl><dt>Done</dt><dd>Lease terms agreed; vendor list sent to Femi.</dd><dt>Blocked</dt><dd>Generator quote, waiting on the landlord.</dd><dt>Tomorrow</dt><dd>Sign the renewal and book the move-in walk-through.</dd></dl></div></div>
+            <div class="report"><span class="ava" style="background:#0f9f7b">HB</span><div><h4>Halima Bello <span>· Finance · 17:40</span></h4><dl><dt>Done</dt><dd>Q4 forecast model checked against October actuals.</dd><dt>Blocked</dt><dd>Nothing.</dd><dt>Tomorrow</dt><dd>Send the forecast to the board; payroll sign-off.</dd></dl></div></div>
+            <div class="report"><span class="ava" style="background:#d4762c">FB</span><div><h4>Femi Balogun <span>· Partnerships · 18:01</span></h4><dl><dt>Done</dt><dd>Legal cleared clause 7 of the FCT MoU.</dd><dt>Blocked</dt><dd>Ministry signatory to confirm a date.</dd><dt>Tomorrow</dt><dd>Final MoU draft out for signature.</dd></dl></div></div>
+          </div>
+        </div>
+
+        <!-- Goals -->
+        <div class="view" role="tabpanel" id="v-goals" aria-labelledby="t-goals" hidden>
+          <div class="view__head"><div><h3>Goals · Q4</h3><p>Updated by the people doing the work</p></div><span class="chip chip--green">2 of 3 on track</span></div>
+          <div class="panel">
+            <div class="goal"><div class="goal__t"><b>Two state partners signed</b><span>50%</span></div><div class="bar"><i data-w="50"></i></div><small>Partnerships · 1 of 2 · FCT MoU due today</small></div>
+            <div class="goal"><div class="goal__t"><b>Halve overdue tasks</b><span>70%</span></div><div class="bar"><i data-w="70"></i></div><small>Whole company · from 10 to 3 so far, target 5</small></div>
+            <div class="goal"><div class="goal__t"><b>Q4 revenue ₦48m</b><span>62%</span></div><div class="bar"><i data-w="62"></i></div><small>Finance · ₦29.8m booked · <span style="color:#f5c26b">behind by ₦2.1m</span></small></div>
+          </div>
+        </div>
+
+        <!-- AI -->
+        <div class="view" role="tabpanel" id="v-ai" aria-labelledby="t-ai" hidden>
+          <div class="view__head"><div><h3>Ask AI</h3><p>Answers from your own tasks, reports and goals</p></div><span class="chip">Uses your own AI key</span></div>
+          <div class="panel">
+            <div class="chat" id="chat" aria-live="polite">
+              <div class="msg msg--ai"><span class="msg__from">AI ANALYST</span>Morning. Pick a question, I'll answer from today's data.</div>
+            </div>
+            <div class="prompts">
+              <button class="prompt" data-q="0">Which team is falling behind?</button>
+              <button class="prompt" data-q="1">What's blocking the MoU?</button>
+              <button class="prompt" data-q="2">Summarise yesterday's reports</button>
+            </div>
+          </div>
+        </div>
+        <div class="toast" id="toast" role="status"><i></i><span></span></div>
       </div>
     </div>
+    <div class="stage__hint"><span>This is the real layout of NEXUS. Every button works.</span><span><kbd>1</kbd>–<kbd>5</kbd> switch sections</span></div>
   </div>
 </section>
 
-<!-- ======================= The day ======================= -->
-<section class="section wrap" id="the-day" aria-labelledby="day-title">
-  <div class="sec-head">
-    <div>
-      <p class="kicker" data-reveal>How it runs</p>
-      <h2 id="day-title" data-reveal>Your team,<br>run to a rhythm.</h2>
+<!-- ============ THE DAY ============ -->
+<section class="sec" id="day" aria-labelledby="day-title">
+  <div class="wrap day">
+    <div class="day__sticky">
+      <span class="kicker" data-reveal>HOW A DAY RUNS</span>
+      <h2 id="day-title" data-reveal style="--i:1;margin-top:18px">It works the day so you don't chase it.</h2>
+      <p class="lede" data-reveal style="--i:2">Five things happen on their own, every working day, on West Africa Time. Nobody has to remember to check.</p>
+      <div class="clockcard" data-reveal style="--i:3">
+        <span class="live" aria-hidden="true"></span>
+        <span class="clockcard__t" id="clock">08:05</span>
+        <span class="clockcard__l"><b>Now in Abuja</b><span id="next">Next: the morning digest</span></span>
+      </div>
     </div>
-    <p data-reveal style="--i:1">NEXUS doesn't wait to be checked. It works the day on schedule — billing, sweeps, digests, reports — on West Africa Time.</p>
-  </div>
-
-  <div class="day-wrap">
-    <ol class="timeline">
-      <li class="tl-item" data-reveal data-at="07:00">
-        <span class="tl-dot" aria-hidden="true"></span>
-        <span class="when mono">07:00</span>
-        <h3>It checks billing.</h3>
-        <p>Plans, renewals and any lapsed payment are settled before the first person logs in.</p>
+    <ol class="steps" id="steps">
+      <span class="steps__fill" id="stepsFill" aria-hidden="true"></span>
+      <li class="step" data-min="420">
+        <span class="step__dot"></span>
+        <time>07:00</time>
+        <h3>Billing is settled.</h3>
+        <p>Renewals and seat counts are checked before anyone logs in, so nobody is locked out at 9.</p>
       </li>
-      <li class="tl-item" data-reveal data-at="08:00" style="--i:1">
-        <span class="tl-dot" aria-hidden="true"></span>
-        <span class="when mono">08:00</span>
-        <h3>It flags what's late.</h3>
-        <p>Every overdue task in every company is marked, so nobody has to go looking.</p>
+      <li class="step" data-min="480">
+        <span class="step__dot"></span>
+        <time>08:00</time>
+        <h3>Late work is flagged.</h3>
+        <p>Every task past its date is marked overdue, across every team. Nobody has to go looking.</p>
       </li>
-      <li class="tl-item" data-reveal data-at="08:05" style="--i:2">
-        <span class="tl-dot" aria-hidden="true"></span>
-        <span class="when mono">08:05</span>
-        <h3>The digest goes out.</h3>
-        <p>The morning digest: what's open, what's due, what's stuck, for each person and each company.</p>
+      <li class="step" data-min="485">
+        <span class="step__dot"></span>
+        <time>08:05</time>
+        <h3>Everyone gets their digest.</h3>
+        <p>What's open, what's due today and what's stuck, written for each person and sent to their phone and inbox.</p>
+        <figure data-reveal>
+          <img src="/img/office-morning-sm.webp" srcset="/img/office-morning-sm.webp 900w, /img/office-morning.webp 1536w" sizes="(max-width:860px) 92vw, 600px" alt="A manager at her desk in the morning, reading her phone beside her laptop and coffee." loading="lazy" style="object-position:50% 30%">
+          <figcaption>08:07 · the day's plan, before the first meeting</figcaption>
+        </figure>
       </li>
-      <li class="tl-item" data-reveal data-at="16:00" style="--i:3">
-        <span class="tl-dot" aria-hidden="true"></span>
-        <span class="when mono">16:00</span>
-        <h3>It calls close.</h3>
-        <p>A reminder to wrap up the day's tasks while there is still time to finish them.</p>
+      <li class="step" data-min="960">
+        <span class="step__dot"></span>
+        <time>16:00</time>
+        <h3>The afternoon close.</h3>
+        <p>A reminder to wrap up today's tasks while there's still time to finish them, not after.</p>
+        <div class="inline-ui" data-reveal>
+          <div class="inline-ui__h">Still open today <span>16:00 reminder</span></div>
+          <ul>
+            <li><b>November payroll sign-off</b><span class="pill pill--amber">due 17:00</span></li>
+            <li><b>Partner MoU: FCT logistics</b><span class="pill pill--amber">due today</span></li>
+          </ul>
+        </div>
       </li>
-      <li class="tl-item" data-reveal data-at="18:05" style="--i:4">
-        <span class="tl-dot" aria-hidden="true"></span>
-        <span class="when mono">18:05</span>
-        <h3>Reports land.</h3>
-        <p>A nudge to everyone who hasn't filed their end-of-day report. Leaders read them in one place.</p>
+      <li class="step" data-min="1085">
+        <span class="step__dot"></span>
+        <time>18:05</time>
+        <h3>Reports come in.</h3>
+        <p>Each person files three lines: done, blocked, tomorrow. Whoever hasn't filed gets a nudge. Leaders read them all in one place.</p>
+        <figure data-reveal>
+          <img src="/img/eod-note-sm.webp" srcset="/img/eod-note-sm.webp 900w, /img/eod-note.webp 1536w" sizes="(max-width:860px) 92vw, 600px" alt="A finance lead typing her end-of-day note on a laptop in late-afternoon light." loading="lazy" style="object-position:50% 35%">
+          <figcaption>17:48 · done, blocked, tomorrow. Two minutes.</figcaption>
+        </figure>
       </li>
     </ol>
-
-    <article class="glass glow-card eod-ui" data-reveal aria-label="An end-of-day report in NEXUS">
-      <h3>End-of-day report · Fri 7 Nov</h3>
-      <p class="who">Amara Chukwu · ABION Industries · filed 17:52</p>
-      <dl>
-        <div><dt>Done today</dt><dd>Abuja lease renewed and signed; vendor list sent to Femi.</dd></div>
-        <div><dt>Blocked</dt><dd>Generator service quote, waiting on the landlord.</dd></div>
-        <div><dt>Tomorrow</dt><dd>Move-in checklist with facilities.</dd></div>
-      </dl>
-    </article>
   </div>
 </section>
 
-<!-- ======================= Modules: bento ======================= -->
-<section class="section modules wrap" id="modules" aria-labelledby="modules-title">
-  <div class="sec-head">
-    <div>
-      <p class="kicker" data-reveal>Modules</p>
-      <h2 id="modules-title" data-reveal>Nothing<br>goes missing.</h2>
+<!-- ============ WHAT'S INSIDE ============ -->
+<section class="sec" id="inside" aria-labelledby="inside-title">
+  <div class="wrap">
+    <div class="sec__head">
+      <div><span class="kicker" data-reveal>WHAT'S INSIDE</span><h2 id="inside-title" data-reveal style="--i:1">Every task carries everything it needs.</h2></div>
+      <p class="lede" data-reveal style="--i:2">People, dates, files, blockers and a first draft from AI, all on the task itself. Nothing lives in a WhatsApp thread you can't find later.</p>
     </div>
-    <p data-reveal style="--i:1">Every task carries its people, dates, files and blockers — and an AI analyst that can take work off your hands.</p>
+    <div class="mods">
+      <article class="mod mod--w3" data-reveal>
+        <h3>Clear owners</h3>
+        <p>Every task has one owner, the people supporting them and a supervisor. Everyone can see who has the next move.</p>
+        <div class="mod__ui"><div class="frag">
+          <div class="frag__h"><span>Partner MoU: FCT logistics</span><span>PEOPLE</span></div>
+          <div class="people">
+            <div class="person"><span class="ava" style="background:#d4762c">FB</span><span>Femi Balogun</span><span class="chip chip--violet">Owner</span></div>
+            <div class="person"><span class="ava" style="background:#0f9f7b">HB</span><span>Halima Bello</span><span class="chip">Support</span></div>
+            <div class="person"><span class="ava" style="background:#5b52f0">AJ</span><span>Ayo T. Joshua</span><span class="chip">Supervisor</span></div>
+          </div>
+        </div></div>
+      </article>
+      <article class="mod mod--w3" data-reveal style="--i:1">
+        <h3>Blockers you can see</h3>
+        <p>When a task waits on another team, it says so. The digest names what's stuck and who can unstick it.</p>
+        <div class="mod__ui"><div class="frag">
+          <div class="frag__h"><span>Waiting on</span><span>DEPENDENCIES</span></div>
+          <div class="deps">
+            <div class="dep"><span>Legal review, clause 7</span><span class="chip chip--green">Done</span></div>
+            <div class="dep"><span>Ministry signatory date</span><span class="chip chip--amber">Open · 3 days</span></div>
+            <div class="dep"><span>Board approval</span><span class="chip">Not started</span></div>
+          </div>
+        </div></div>
+      </article>
+      <article class="mod mod--w2" data-reveal>
+        <h3>Files with the work</h3>
+        <p>Documents live on the task, stored per company and walled off from everyone else.</p>
+        <div class="mod__ui"><div class="frag">
+          <div class="frag__h"><span>Attachments</span><span>2</span></div>
+          <div class="file"><b>PDF</b><span>MoU draft v3</span><small>412 KB</small></div>
+          <div class="file"><b style="background:#1f8a5b">XLS</b><span>Q4 forecast</span><small>88 KB</small></div>
+          <div class="lock"><svg><use href="#i-lock"/></svg>Only ABION Industries can open these</div>
+        </div></div>
+      </article>
+      <article class="mod mod--w2" data-reveal style="--i:1">
+        <h3>Goals that update themselves</h3>
+        <p>Progress comes from the work, not a spreadsheet someone forgets to fill in.</p>
+        <div class="mod__ui"><div class="frag">
+          <div class="frag__h"><span>Q4 goals</span><span>3</span></div>
+          <div class="goal" style="padding:0 0 12px"><div class="goal__t"><b>Two state partners</b><span>50%</span></div><div class="bar"><i data-w="50"></i></div></div>
+          <div class="goal" style="padding:12px 0"><div class="goal__t"><b>Halve overdue tasks</b><span>70%</span></div><div class="bar"><i data-w="70"></i></div></div>
+          <div class="goal" style="padding:12px 0 6px"><div class="goal__t"><b>Q4 revenue ₦48m</b><span>62%</span></div><div class="bar"><i data-w="62"></i></div></div>
+        </div></div>
+      </article>
+      <article class="mod mod--w2" data-reveal style="--i:2">
+        <h3>A partner pipeline</h3>
+        <p>Track partners and MoUs from first meeting to signature, next to the tasks that move them.</p>
+        <div class="mod__ui"><div class="frag">
+          <div class="frag__h"><span>Partnerships</span><span>4</span></div>
+          <div class="deps">
+            <div class="dep"><span>FCT logistics</span><span class="chip chip--amber">Signing</span></div>
+            <div class="dep"><span>Niger State agric</span><span class="chip chip--green">Signed</span></div>
+            <div class="dep"><span>Kaduna transport</span><span class="chip chip--violet">Proposal</span></div>
+            <div class="dep"><span>Plateau cooperative</span><span class="chip">First meeting</span></div>
+          </div>
+        </div></div>
+      </article>
+      <article class="mod mod--w4 mod--wide-t" data-reveal>
+        <h3>An AI that takes work off your hands</h3>
+        <p>Hand a task to the AI analyst and get a first draft back for you to approve. It uses your own AI provider and key, and every feature's usage is recorded, so there are no surprise bills.</p>
+        <div class="mod__ui"><div class="frag">
+          <div class="frag__h"><span>Handed to AI · Follow-up letter to the Ministry</span><span>DRAFT</span></div>
+          <div class="draft"><small>FIRST DRAFT · FOR YOUR APPROVAL</small><span id="draftText">Dear Director, thank you for the meeting on Tuesday. Following legal's review of clause 7, we're ready to sign the logistics MoU and propose Thursday 13 November at 11:00 for the signing…</span></div>
+          <div class="usage"><span>Model: your provider</span><span>This month: 182 requests · ₦1,940</span></div>
+        </div></div>
+      </article>
+      <article class="mod mod--w2" data-reveal style="--i:1">
+        <h3>Reports in one place</h3>
+        <p>Three lines from each person at close. Leaders read the whole team in two minutes.</p>
+        <div class="mod__ui"><div class="frag">
+          <div class="frag__h"><span>Yesterday</span><span>15 / 17</span></div>
+          <div class="people">
+            <div class="person"><span class="ava" style="background:#7b5cff">AC</span><span>Amara Chukwu</span><span class="chip chip--green">17:52</span></div>
+            <div class="person"><span class="ava" style="background:#0f9f7b">HB</span><span>Halima Bello</span><span class="chip chip--green">17:40</span></div>
+            <div class="person"><span class="ava" style="background:#3a7bd5">CO</span><span>Chidi Okafor</span><span class="chip chip--red">Missing</span></div>
+          </div>
+        </div></div>
+      </article>
+    </div>
   </div>
+</section>
 
-  <div class="bento">
-    <div class="glass glow-card card b-people" data-reveal>
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3 2.8-4.6 5.5-4.6s4.9 1.6 5.5 4.6"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.6c2.3.2 4 1.6 4.5 4.4"/></svg></span>
-      <h3>Who's on it</h3>
-      <p>An owner, support and a supervisor, each with their part named.</p>
-      <ul class="mini-list">
-        <li>Femi Balogun <span class="chip chip--ok">Owner</span></li>
-        <li>Halima Bello <span class="chip chip--plain">Support</span></li>
-        <li>Ayo T. Joshua <span class="chip chip--plain">Supervisor</span></li>
+<!-- ============ MADE FOR HERE ============ -->
+<section class="sec" aria-labelledby="here-title">
+  <div class="wrap here">
+    <div class="here__photo" data-reveal>
+      <img src="/img/field-officer-sm.webp" srcset="/img/field-officer-sm.webp 900w, /img/field-officer.webp 1536w" sizes="(max-width:860px) 92vw, 600px" alt="A field officer standing beside a pickup truck on a road outside Abuja, checking his phone." loading="lazy">
+      <div class="offline" aria-live="polite">
+        <span class="sig" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span><b>Site visit report saved</b><span id="offlineLine">No signal. Will send when you're back online.</span></span>
+        <span class="queue" id="queue">Queued</span>
+      </div>
+    </div>
+    <div class="here__text">
+      <span class="kicker" data-reveal>MADE FOR HOW WORK RUNS HERE</span>
+      <h2 id="here-title" data-reveal style="--i:1;margin-top:18px">Keeps working when the signal doesn't.</h2>
+      <p class="lede" data-reveal style="--i:2">Your people aren't all at a desk. NEXUS saves work on the phone, queues it, and sends it in order the moment there's a connection again.</p>
+      <div class="facts">
+        <div class="fact" data-reveal><b>Offline first</b><span>Changes queue on the device. Drafts save as you type.</span></div>
+        <div class="fact" data-reveal style="--i:1"><b>Web and Android</b><span>Installs from the browser on any phone, plus an Android app.</span></div>
+        <div class="fact" data-reveal style="--i:2"><b>Billed in naira</b><span>Monthly, in naira. No dollar card needed.</span></div>
+        <div class="fact" data-reveal style="--i:3"><b>West Africa Time</b><span>Every reminder runs on your clock, not California's.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STRUCTURE ============ -->
+<section class="sec" id="structure" aria-labelledby="struct-title">
+  <div class="wrap struct">
+    <div class="struct__text">
+      <span class="kicker" data-reveal>ONE COMPANY, OR MANY</span>
+      <h2 id="struct-title" data-reveal style="--i:1;margin-top:18px">Starts with one team. Grows into a group.</h2>
+      <p class="lede" data-reveal style="--i:2">Most teams start with one company. If you run several, bring them under a group: you see across all of them, and each company still keeps its own people and work to itself.</p>
+      <div class="seg" role="group" aria-label="Show a single company or a group" data-reveal style="--i:3">
+        <button aria-pressed="true" data-mode="single">One company</button>
+        <button aria-pressed="false" data-mode="group">A group</button>
+      </div>
+      <div class="struct__photo" data-reveal style="--i:4">
+        <img src="/img/team-table-sm.webp" srcset="/img/team-table-sm.webp 900w, /img/team-table.webp 1536w" sizes="(max-width:860px) 92vw, 520px" alt="A team gathered around a table, reviewing work on a laptop together." loading="lazy">
+      </div>
+    </div>
+    <div class="org" id="org" data-mode="single" data-reveal style="--i:2">
+      <div class="org__top"><b id="orgTitle">ABION Industries</b><span id="orgSub">Company · 17 people</span></div>
+      <div class="org__group">
+        <div class="org__gh"><b>ABION Group</b><span>Group admin sees across all three</span></div>
+        <div class="org__cos">
+          <div class="co"><b>ABION Industries</b><span>Company admin: Amara Chukwu</span><div class="seats"><small>17 of 25 seats · Starter</small><i style="--w:68%"></i></div></div>
+          <div class="co"><b>ABION Labs</b><span>Company admin: Femi Balogun</span><div class="seats"><small>9 of 25 seats · Starter</small><i style="--w:36%"></i></div></div>
+          <div class="co"><b>ABION Agro</b><span>Company admin: Halima Bello</span><div class="seats"><small>4 of 5 seats · Free</small><i style="--w:80%"></i></div></div>
+        </div>
+      </div>
+      <p class="wall wall--single"><svg><use href="#i-shield"/></svg>Leaders, team members and interns, each with only the access their role needs.</p>
+      <p class="wall wall--group"><svg><use href="#i-shield"/></svg>Each company's data is walled off inside the database itself. Only the group sees across.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST ============ -->
+<section class="sec" aria-labelledby="trust-title">
+  <div class="wrap">
+    <div class="sec__head">
+      <div><span class="kicker" data-reveal>ACCESS AND SECURITY</span><h2 id="trust-title" data-reveal style="--i:1">The right people see the right work.</h2></div>
+      <p class="lede" data-reveal style="--i:2">Roles are simple, permissions are granted one at a time, and your data is separated at the database level, not just hidden on screen.</p>
+    </div>
+    <div class="trust">
+      <div data-reveal><b>Roles that fit a real team</b><span>Leader, team member and intern in each company, plus guests for outside partners. Extra permissions are granted one at a time.</span></div>
+      <div data-reveal style="--i:1"><b>Your password, chosen by you</b><span>Nobody sets or sees anyone else's password. You choose yours through a one-time link sent to your email.</span></div>
+      <div data-reveal style="--i:2"><b>Separated in the database</b><span>Every company's records are isolated by the database itself, so one company can never see another's work by mistake.</span></div>
+      <div data-reveal><b>Invite in a minute</b><span>An admin invites someone by email and picks their role. They set a password and land in the right company.</span></div>
+      <div data-reveal style="--i:1"><b>Your own AI, your own key</b><span>Connect the AI provider you trust. Usage is recorded per feature so you always know what it costs.</span></div>
+      <div data-reveal style="--i:2"><b>A full audit trail</b><span>Role changes, invites and admin actions are logged with who did what, and when.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="sec" id="pricing" aria-labelledby="price-title">
+  <div class="wrap price">
+    <div>
+      <span class="kicker" data-reveal>PRICING</span>
+      <h2 id="price-title" data-reveal style="--i:1;margin-top:18px">Simple, in naira.</h2>
+      <p class="lede" data-reveal style="--i:2">Every plan includes every module. Slide to your team size and see exactly what you'd pay each month.</p>
+      <ul class="incl" data-reveal style="--i:3">
+        <li><svg><use href="#i-check"/></svg>Tasks, reports, goals, partners and files</li>
+        <li><svg><use href="#i-check"/></svg>The daily digest, the afternoon close and report reminders</li>
+        <li><svg><use href="#i-check"/></svg>The AI analyst, with your own AI key</li>
+        <li><svg><use href="#i-check"/></svg>Web, Android and offline use</li>
       </ul>
     </div>
-
-    <div class="glass glow-card card b-fields" data-reveal style="--i:1">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M7 12h10M10 18h4"/></svg></span>
-      <h3>Priority and dates</h3>
-      <p>Overdue tasks surface in the 08:00 sweep and the digest.</p>
-      <div class="kv">
-        <div><small>Priority</small>Urgent</div>
-        <div><small>Due</small>Today, 17:00</div>
-        <div><small>Company</small>ABION Labs</div>
-        <div><small>Goal</small>Two state partners</div>
+    <div class="calc" data-reveal style="--i:2">
+      <label for="team">People on your team <output id="teamOut" for="team">12</output></label>
+      <input type="range" id="team" min="1" max="100" value="12" aria-describedby="planNote">
+      <div class="calc__ticks" aria-hidden="true"><span>1</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+      <div class="plans">
+        <div class="plan" data-plan="free"><h3>Free</h3><div class="amt">₦0 <small>/ month</small></div><p>Up to 5 people. One company.</p></div>
+        <div class="plan" data-plan="starter"><h3>Starter</h3><div class="amt" id="amtStarter">₦27,000 <small>/ month</small></div><p>₦15,000 + ₦1,000 per person. Up to 25 people.</p></div>
+        <div class="plan" data-plan="pro"><h3>Pro</h3><div class="amt" id="amtPro">₦68,000 <small>/ month</small></div><p>₦50,000 + ₦1,500 per person. Unlimited, covers a whole group.</p></div>
       </div>
-    </div>
-
-    <div class="glass glow-card card b-deps" data-reveal>
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 4v6a4 4 0 0 0 4 4h8"/><path d="M14 11l4 3-4 3"/></svg></span>
-      <h3>What it waits on</h3>
-      <p>Dependencies across teams, so a blocked task says why.</p>
-      <ul class="mini-list">
-        <li>Legal review, clause 7 <span class="chip chip--ok">Done</span></li>
-        <li>Ministry signatory <span class="chip chip--today">Open</span></li>
-      </ul>
-    </div>
-
-    <div class="glass glow-card card b-progress" data-reveal style="--i:1">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M7 15l3.5-4 3 2.5L18 8"/></svg></span>
-      <h3>Progress you can trust</h3>
-      <p>Updated by the people doing it, read in the digest and analytics.</p>
-      <div class="pbar"><i></i></div>
-      <span class="mono" style="color:var(--muted)">60% · on track</span>
-    </div>
-
-    <div class="glass glow-card card b-files" data-reveal style="--i:2">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg></span>
-      <h3>Files with the work</h3>
-      <p>Documents stay on the task, stored per company, walled off from sister companies.</p>
-      <ul class="mini-list"><li>MoU draft v3.pdf <span class="muted mono" style="margin-left:auto;font-size:.72rem">412 KB</span></li></ul>
-    </div>
-
-    <div class="glass glow-card card b-ai" data-reveal>
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 15.5l.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9z"/></svg></span>
-      <div>
-        <h3>An AI that can take it</h3>
-        <p>Hand a task to the AI analyst for a first draft — using your own AI provider and key, with usage recorded per feature.</p>
-      </div>
-      <div class="chips">
-        <span class="chip chip--ok">Draft the cover letter</span>
-        <span class="chip chip--plain">Follow-up for Monday</span>
-      </div>
+      <div class="calc__foot"><span id="planNote" aria-live="polite">For 12 people, Starter fits: ₦27,000 a month.</span><a class="btn" href="#access">Request access</a></div>
     </div>
   </div>
 </section>
 
-<!-- ======================= Structure ======================= -->
-<section class="section structure wrap" id="groups" aria-labelledby="groups-title">
-  <p class="kicker" data-reveal>Structure</p>
-  <h2 id="groups-title" data-reveal>One company,<br>or many.</h2>
-  <p class="lead" data-reveal style="--i:1">Run a single company on its own. When you have more than one, bring them under a group: the group sees across, and each company keeps its own people, tasks and files, walled off from the others.</p>
-
-  <div class="mosaic">
-    <div class="glass glow-card org-ui" data-reveal role="img" aria-label="The ABION Group in NEXUS: a group with three companies, their admins and seats.">
-      <div class="org-ui__top"><strong>ABION Group</strong><span>Group · 3 companies · 17 people</span></div>
-      <div class="org-stats">
-        <div><b>31</b><span>Open tasks</span></div>
-        <div><b>4</b><span>Overdue</span></div>
-        <div><b>15 of 17</b><span>EOD reports filed</span></div>
-      </div>
-      <div class="org-tree">
-        <div class="org-node org-group"><b>ABION Group</b><span class="muted" style="font-size:.8rem">Group Admin: Ayo T. Joshua</span></div>
-        <div class="org-node"><b>ABION Industries</b><div class="who"><span>Amara Chukwu</span><span>Company Admin</span></div><div class="seats">9 of 25 seats · Starter</div></div>
-        <div class="org-node"><b>ABION Labs</b><div class="who"><span>Femi Balogun</span><span>Company Admin</span></div><div class="seats">5 of 25 seats · Starter</div></div>
-        <div class="org-node"><b>ABION Agro</b><div class="who"><span>Halima Bello</span><span>Company Admin</span></div><div class="seats">3 of 5 seats · Free</div></div>
-      </div>
-    </div>
-
-    <div class="mosaic__side">
-      <figure class="tile" data-reveal style="margin:0">
-        <svg viewBox="0 0 240 200" role="img" aria-label="Map of Nigeria with Abuja marked">
-          <path fill="#04140e" d="M30 128 L22 104 L24 84 L18 66 L34 44 L52 38 L66 22 L92 20 L112 30 L134 26 L152 14 L176 18 L196 12 L214 26 L222 48 L212 66 L218 84 L206 100 L196 122 L176 134 L170 156 L152 168 L138 186 L116 190 L100 176 L82 176 L66 164 L50 158 L38 142 Z"/>
-          <circle cx="100" cy="104" r="7" fill="#f2f2ff"/>
-          <circle cx="100" cy="104" r="13" fill="none" stroke="#f2f2ff" stroke-width="2.5"/>
-        </svg>
-        <figcaption>Abuja, where NEXUS is built</figcaption>
-      </figure>
-      <div class="glass facts-card" data-reveal style="--i:1">
-        <p style="font-size:.92rem;margin-bottom:16px">Invite a company's admin and they run the rest — their own staff, roles and permissions, without seeing a sister company's work.</p>
-        <dl class="facts">
-          <div><dt>Local time</dt><dd>West Africa Time</dd></div>
-          <div><dt>Billing</dt><dd>In naira</dd></div>
-          <div><dt>Weak signal</dt><dd>Keeps working offline</dd></div>
-          <div><dt>On the go</dt><dd>Web and Android</dd></div>
-        </dl>
-      </div>
+<!-- ============ FAQ ============ -->
+<section class="sec" id="questions" aria-labelledby="faq-title">
+  <div class="wrap faq">
+    <div><span class="kicker" data-reveal>QUESTIONS</span><h2 id="faq-title" data-reveal style="--i:1;margin-top:18px">Questions, answered.</h2></div>
+    <div class="faq__list" data-reveal style="--i:1">
+      <details open><summary>Who is NEXUS for?<i></i></summary><p>Any team or company that runs on tasks, deadlines and daily reports, from a five-person startup to a group with several companies. It's built for the people who keep work moving: founders, operations leads, chiefs of staff, executive assistants and team leads.</p></details>
+      <details><summary>How is it different from a to-do app?<i></i></summary><p>A to-do app waits for you to open it. NEXUS runs the day on a schedule: it flags late work at 08:00, sends each person their digest at 08:05, calls the close at 16:00 and collects end-of-day reports at 18:05. Leaders see the whole team without asking.</p></details>
+      <details><summary>How do people sign in?<i></i></summary><p>With their email and a password they choose themselves, set through a one-time link we email them. Google sign-in is coming soon.</p></details>
+      <details><summary>How does someone join?<i></i></summary><p>An admin invites them by email and picks their role. They get a link, choose a password, and land in the right company.</p></details>
+      <details><summary>Does it work on a bad connection?<i></i></summary><p>Yes. Changes made offline are queued on the device and sent in order when the signal returns, and drafts save as you type.</p></details>
+      <details><summary>Which AI does it use?<i></i></summary><p>Yours. Each company connects its own AI provider and key, and NEXUS records what each feature uses, so there are no surprise bills.</p></details>
+      <details><summary>Can one company see another's work?<i></i></summary><p>No. Each company's records are separated inside the database itself. Only a group you set up, and NEXUS's own administrators, can see across companies.</p></details>
+      <details><summary>How do we start?<i></i></summary><p>Request access with your company's name and how many people you have. We set it up with you and invite your first admins. Teams of up to five can stay on the Free plan.</p></details>
     </div>
   </div>
 </section>
 
-<!-- ======================= Pricing ======================= -->
-<section class="section wrap" id="pricing" aria-labelledby="pricing-title">
-  <div class="sec-head">
+<!-- ============ CLOSE ============ -->
+<section class="close" id="access" aria-labelledby="close-title">
+  <img src="/img/dusk-office-sm.webp" srcset="/img/dusk-office-sm.webp 900w, /img/dusk-office.webp 1800w" sizes="100vw" alt="An office desk at dusk, with a closed laptop and Abuja's evening lights through the window." loading="lazy">
+  <div class="wrap close__in">
     <div>
-      <p class="kicker" data-reveal>Pricing</p>
-      <h2 id="pricing-title" data-reveal>Simple, in naira.</h2>
+      <h2 id="close-title" data-reveal>See you at 08:05.</h2>
+      <p data-reveal style="--i:1">Tell us your company's name and how many people you have. We'll set NEXUS up with you and invite your first admins.</p>
     </div>
-    <p data-reveal style="--i:1">Every module included on every plan. A group on Pro covers every company beneath it.</p>
-  </div>
-
-  <div class="glass pricing-card" data-reveal>
-    <table class="plans">
-      <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col"><span class="plan-name">Free</span><span class="price">₦0</span><span class="per">a month</span></th>
-          <th scope="col" class="rec"><span class="plan-name">Starter</span><span class="price">₦15,000</span><span class="per">a month, plus ₦1,000 a person</span></th>
-          <th scope="col"><span class="plan-name">Pro</span><span class="price">₦50,000</span><span class="per">a month, plus ₦1,500 a person</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><th scope="row">People</th><td>Up to 5</td><td class="rec">Up to 25</td><td>Unlimited</td></tr>
-        <tr><th scope="row">Every module</th><td>Included</td><td class="rec">Included</td><td>Included</td></tr>
-        <tr><th scope="row">Daily digest and reminders</th><td>Included</td><td class="rec">Included</td><td>Included</td></tr>
-        <tr><th scope="row">Companies under a group</th><td>One company</td><td class="rec">Per company</td><td>Covers the group</td></tr>
-        <tr><th scope="row">AI analyst</th><td>Your own AI key</td><td class="rec">Your own AI key</td><td>Your own AI key</td></tr>
-        <tr>
-          <th scope="row"></th>
-          <td><a class="button plan-btn" href="mailto:abionnexus@gmail.com?subject=NEXUS%20Free%20plan">Start free</a></td>
-          <td class="rec"><a class="button" href="mailto:abionnexus@gmail.com?subject=NEXUS%20Starter%20plan">Choose Starter</a></td>
-          <td><a class="button plan-btn" href="mailto:abionnexus@gmail.com?subject=NEXUS%20Pro%20plan">Choose Pro</a></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="plans-mobile">
-      <div class="glass plan-card"><h3>Free</h3><p class="price">₦0 a month</p><dl><div><dt>People</dt><dd>Up to 5</dd></div><div><dt>Every module</dt><dd>Included</dd></div><div><dt>Companies</dt><dd>One company</dd></div></dl><a class="button" href="mailto:abionnexus@gmail.com?subject=NEXUS%20Free%20plan">Start free</a></div>
-      <div class="glass plan-card rec"><h3>Starter</h3><p class="price">₦15,000 a month</p><dl><div><dt>Each person</dt><dd>₦1,000 a month</dd></div><div><dt>People</dt><dd>Up to 25</dd></div><div><dt>Every module</dt><dd>Included</dd></div></dl><a class="button" href="mailto:abionnexus@gmail.com?subject=NEXUS%20Starter%20plan">Choose Starter</a></div>
-      <div class="glass plan-card"><h3>Pro</h3><p class="price">₦50,000 a month</p><dl><div><dt>Each person</dt><dd>₦1,500 a month</dd></div><div><dt>People</dt><dd>Unlimited</dd></div><div><dt>Companies</dt><dd>Covers the group</dd></div></dl><a class="button" href="mailto:abionnexus@gmail.com?subject=NEXUS%20Pro%20plan">Choose Pro</a></div>
+    <div class="hero__cta" data-reveal style="--i:2;margin:0;justify-content:flex-start">
+      <a class="btn btn--dark" href="mailto:abionnexus@gmail.com?subject=NEXUS%20access&amp;body=Company%20or%20team%20name%3A%0AHow%20many%20people%3A%0AMore%20than%20one%20company%3F%20How%20many%3A%0A">Request access <svg><use href="#i-arrow"/></svg></a>
+      <a class="btn btn--ghost" href="https://app.nexusabion.com">Sign in</a>
     </div>
-  </div>
-  <p class="pricing-note" data-reveal>Prices in naira, billed monthly. A group on Pro covers every company beneath it.</p>
-</section>
-
-<!-- ======================= FAQ ======================= -->
-<section class="section faq wrap" id="questions" aria-labelledby="faq-title">
-  <div class="axis-grid">
-    <div class="faq__side">
-      <div>
-        <p class="kicker" data-reveal>Questions</p>
-        <h2 id="faq-title" data-reveal>Questions,<br>answered.</h2>
-      </div>
-      <div class="glass chat-ui" data-reveal style="--i:1" aria-label="A conversation with the NEXUS AI analyst">
-        <div class="bubble bubble--me"><div class="from">Ayo</div>Which company is falling behind this week?</div>
-        <div class="bubble"><div class="from">AI analyst</div><b>ABION Industries.</b> 3 of its 4 overdue tasks sit with facilities, and 2 EOD reports were missed on Thursday. The lease renewal was closed today.</div>
-      </div>
-    </div>
-
-    <div data-reveal style="--i:1">
-      <details open><summary>Who is NEXUS for?<span class="pm">+</span></summary><div class="a">Any team or company that runs on tasks, deadlines and daily reports — from a five-person startup to a group with several companies. It's built for the people who keep the work moving: founders, operations leads, chiefs of staff, executive assistants and team leads.</div></details>
-      <details><summary>How do people sign in?<span class="pm">+</span></summary><div class="a">With their email and a password they choose themselves, through a one-time link we email them. Google sign-in is coming soon.</div></details>
-      <details><summary>How does someone join?<span class="pm">+</span></summary><div class="a">An admin invites them by email and picks their role. They get a link, choose a password, and land in their company.</div></details>
-      <details><summary>Can one company see another's work?<span class="pm">+</span></summary><div class="a">No. Each company's data is separated inside the database itself, not just hidden in the screens. Only the group, and NEXUS's own administrators, see across.</div></details>
-      <details><summary>What roles are there?<span class="pm">+</span></summary><div class="a">Leader, team member and intern in each company, with extra permissions granted one at a time. Group and company admins manage their own people.</div></details>
-      <details><summary>Does it work on a bad connection?<span class="pm">+</span></summary><div class="a">Yes. Changes made offline are queued on the device and sent in order when the signal returns, and drafts are saved as you type.</div></details>
-      <details><summary>Is there a phone app?<span class="pm">+</span></summary><div class="a">NEXUS installs from the browser on any phone, and there is an Android app.</div></details>
-      <details><summary>Which AI does it use?<span class="pm">+</span></summary><div class="a">Yours. Each company connects its own AI provider and key, and NEXUS records what each feature uses so there are no surprises.</div></details>
-      <details><summary>What are end-of-day reports?<span class="pm">+</span></summary><div class="a">A short note each person files at close: what got done, what's blocked, what's next. NEXUS reminds whoever hasn't filed by 18:05.</div></details>
-      <details><summary>How do we start?<span class="pm">+</span></summary><div class="a">Request access with your company's name and how many people you have (and, if you run several companies, how many). We set it up and invite your first admins.</div></details>
-    </div>
-  </div>
-</section>
-
-<!-- ======================= Close ======================= -->
-<section class="close" aria-labelledby="close-title">
-  <p class="kicker" style="justify-content:center" data-reveal>See you at 08:05</p>
-  <h2 id="close-title" data-reveal>See you at<br><span class="grad">08:05.</span></h2>
-  <div class="close__foot">
-    <p data-reveal style="--i:1">Tell us your company's name and how many people you have. We'll set it up and invite your first admins.</p>
-    <a class="button" data-reveal style="--i:2" href="mailto:abionnexus@gmail.com?subject=NEXUS%20access&amp;body=Company%20or%20team%20name%3A%0AHow%20many%20people%3A%0AMore%20than%20one%20company%3F%20How%20many%3A%0A">Request access
-      <svg viewBox="0 0 16 16" fill="none"><path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
   </div>
 </section>
 </main>
 
-<footer class="footer">
-  <div class="footer__cols">
-    <ul><li>NEXUS</li><li>Operations for teams, companies and groups</li><li>Built by ABION Industries</li></ul>
-    <ul><li>Product</li><li><a href="#the-day">How it runs</a></li><li><a href="#modules">Modules</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#questions">Questions</a></li></ul>
-    <ul><li>Already on NEXUS</li><li><a href="https://app.nexusabion.com">Sign in</a></li><li><a href="https://app.nexusabion.com">Set or reset a password</a></li></ul>
-    <ul><li>Contact</li><li><a href="mailto:abionnexus@gmail.com">abionnexus@gmail.com</a></li><li>Abuja, Nigeria</li></ul>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><a class="logo" href="/"><i></i>NEXUS</a><p>Run the whole working day. Built in Abuja by ABION Industries.</p></div>
+      <div><h4>Product</h4><ul><li><a href="#product">Live demo</a></li><li><a href="#day">How a day runs</a></li><li><a href="#inside">What's inside</a></li><li><a href="#pricing">Pricing</a></li></ul></div>
+      <div><h4>Account</h4><ul><li><a href="https://app.nexusabion.com">Sign in</a></li><li><a href="https://app.nexusabion.com">Set or reset a password</a></li><li><a href="#access">Request access</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="mailto:abionnexus@gmail.com">abionnexus@gmail.com</a></li><li>Abuja, Nigeria</li></ul></div>
+    </div>
+    <div class="foot__base"><span>© 2026 ABION Industries. NEXUS is a product of ABION Industries.</span><span>Photographs are illustrative.</span></div>
   </div>
-  <svg class="footer__mark" viewBox="0 0 520 108" role="img" aria-label="NEXUS"><text x="-6" y="98" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="134" letter-spacing="-4" textLength="530" lengthAdjust="spacingAndGlyphs">NEXUS</text></svg>
-  <p class="footer__legal">© 2026 ABION Industries. NEXUS is a product of ABION Industries.</p>
 </footer>
 
 <script>
-(function () {
-  // ---- Live clock in Abuja (WAT; the IANA zone for WAT is Africa/Lagos) + next scheduled job ----
-  var jobs = [
-    ['07:00', 'the billing check'],
-    ['08:00', 'the overdue sweep'],
-    ['08:05', 'the morning digest'],
-    ['09:00', 'the dependency sweep'],
-    ['16:00', 'the close-of-business reminder'],
-    ['18:00', 'follow-up escalations'],
-    ['18:05', 'the end-of-day nudge'],
-    ['23:00', "the day's task snapshot"]
-  ];
-  function watParts() {
-    var f = new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Lagos', hour: '2-digit', minute: '2-digit', hour12: false });
-    var o = {};
-    f.formatToParts(new Date()).forEach(function (p) { o[p.type] = p.value; });
-    return { h: +o.hour % 24, m: +o.minute };
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- nav ---------- */
+  var nav = document.getElementById('nav');
+  function onScroll(){ nav.classList.toggle('is-stuck', window.scrollY > 20); }
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  /* ---------- reveal ---------- */
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (!e.isIntersecting) return;
+      e.target.classList.add('is-in');
+      e.target.querySelectorAll('.bar i[data-w]').forEach(function(b){ b.style.width = b.dataset.w + '%'; });
+      io.unobserve(e.target);
+    });
+  }, {rootMargin:'0px 0px -8% 0px'}) : null;
+  document.querySelectorAll('[data-reveal], .app, .mod').forEach(function(el){ io ? io.observe(el) : el.classList.add('is-in'); });
+  if (!io) document.querySelectorAll('.bar i[data-w]').forEach(function(b){ b.style.width = b.dataset.w + '%'; });
+
+  /* ---------- West Africa Time (Abuja). The IANA zone for WAT is Africa/Lagos. ---------- */
+  function wat(){
+    var p = new Intl.DateTimeFormat('en-GB',{timeZone:'Africa/Lagos',hour:'2-digit',minute:'2-digit',hour12:false,weekday:'short',day:'numeric',month:'short'}).formatToParts(new Date());
+    var o = {}; p.forEach(function(x){ o[x.type] = x.value; });
+    return {h:+o.hour % 24, m:+o.minute, label:o.weekday + ' ' + o.day + ' ' + o.month};
   }
-  function pad(n) { return String(n).padStart(2, '0'); }
-  function mins(s) { var a = s.split(':'); return +a[0] * 60 + +a[1]; }
-  function until(d) { var h = Math.floor(d / 60), m = d % 60; return (h ? h + 'h ' : '') + m + 'm'; }
-  function tick() {
-    try {
-      var t = watParts(), now = t.h * 60 + t.m;
-      document.getElementById('clock-time').textContent = pad(t.h) + ':' + pad(t.m);
-      var next = jobs.find(function (j) { return mins(j[0]) > now; }) || jobs[0];
-      var d = mins(next[0]) - now; if (d <= 0) d += 1440;
-      document.getElementById('clock-next').textContent = 'Next: ' + next[1] + ' at ' + next[0] + ', in ' + until(d) + '.';
-    } catch (e) { /* static text stays */ }
+  var t0 = wat();
+  document.querySelectorAll('[data-today]').forEach(function(n){ n.textContent = t0.label; });
+  var greet = document.getElementById('greet');
+  greet.textContent = (t0.h < 12 ? 'Good morning' : t0.h < 17 ? 'Good afternoon' : 'Good evening') + ', Ayo.';
+
+  /* ---------- live demo data ---------- */
+  var tasks = [
+    {id:1, t:'Renew Abuja office lease', team:'Operations', who:'Amara Chukwu', due:'2 days over', kind:'red', today:true},
+    {id:2, t:'Partner MoU: FCT logistics', team:'Partnerships', who:'Femi Balogun', due:'Due today', kind:'amber', today:true},
+    {id:3, t:'Q4 forecast to the board', team:'Finance', who:'Halima Bello', due:'Due today', kind:'amber', today:true},
+    {id:4, t:'November payroll sign-off', team:'Finance', who:'Halima Bello', due:'Due 17:00', kind:'amber', today:true},
+    {id:5, t:'Generator service quote', team:'Operations', who:'Amara Chukwu', due:'Blocked', kind:'violet', today:false},
+    {id:6, t:'Publish November content plan', team:'Communications', who:'Chidi Okafor', due:'Fri 14 Nov', kind:'', today:false}
+  ];
+  var done = {};
+  var filter = 'all';
+  var svgCheck = '<svg viewBox="0 0 16 16"><use href="#i-check"/></svg>';
+
+  function rowHTML(x){
+    var d = !!done[x.id];
+    return '<div class="row' + (d ? ' is-done' : '') + '">' +
+      '<button class="check" data-id="' + x.id + '" aria-pressed="' + d + '" aria-label="Mark “' + x.t + '” done">' + svgCheck + '</button>' +
+      '<div style="min-width:0"><span class="row__t">' + x.t + '</span><span class="row__m">' + x.team + ' · ' + x.who + '</span></div>' +
+      '<span class="chip' + (d ? ' chip--green' : x.kind ? ' chip--' + x.kind : '') + '">' + (d ? 'Done' : x.due) + '</span></div>';
+  }
+  function render(){
+    var todayList = tasks.filter(function(x){ return x.today; });
+    document.querySelector('[data-list="today"]').innerHTML = todayList.map(rowHTML).join('');
+    document.querySelector('[data-list="all"]').innerHTML = tasks.filter(function(x){ return filter === 'all' || x.team === filter; }).map(rowHTML).join('');
+    var open = tasks.filter(function(x){ return !done[x.id]; });
+    var nDone = tasks.length - open.length;
+    document.querySelectorAll('[data-open-count]').forEach(function(n){ n.textContent = open.length; });
+    document.querySelectorAll('[data-done-count]').forEach(function(n){ n.textContent = nDone; });
+    document.querySelector('[data-stat="open"]').textContent = open.length;
+    document.querySelector('[data-stat="overdue"]').textContent = open.filter(function(x){ return x.kind === 'red'; }).length;
+    document.querySelector('[data-stat="today"]').textContent = open.filter(function(x){ return x.today && x.kind === 'amber'; }).length;
+  }
+  render();
+
+  var toastEl = document.getElementById('toast'), toastTimer;
+  function toast(msg){
+    toastEl.querySelector('span').textContent = msg;
+    toastEl.classList.add('is-on');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function(){ toastEl.classList.remove('is-on'); }, 2600);
+  }
+
+  var app = document.getElementById('app');
+  app.addEventListener('click', function(e){
+    var c = e.target.closest('.check');
+    if (c){
+      var id = +c.dataset.id; done[id] = !done[id]; render();
+      var x = tasks.filter(function(t){ return t.id === id; })[0];
+      toast(done[id] ? 'Closed “' + x.t + '” · added to tonight\'s report' : 'Reopened “' + x.t + '”');
+      return;
+    }
+    var f = e.target.closest('.filter');
+    if (f){
+      filter = f.dataset.filter;
+      document.querySelectorAll('.filter').forEach(function(b){ b.setAttribute('aria-pressed', b === f); });
+      render(); return;
+    }
+    var go = e.target.closest('[data-go]');
+    if (go){ select(go.dataset.go); return; }
+  });
+
+  /* tabs */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var names = ['today','tasks','reports','goals','ai'];
+  function select(name){
+    tabs.forEach(function(t){
+      var on = t.id === 't-' + name;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    var v = document.getElementById('v-' + name);
+    v.querySelectorAll('.bar i[data-w]').forEach(function(b){ b.style.width = '0'; requestAnimationFrame(function(){ requestAnimationFrame(function(){ b.style.width = b.dataset.w + '%'; }); }); });
+  }
+  tabs.forEach(function(t, i){
+    t.tabIndex = i === 0 ? 0 : -1;
+    t.addEventListener('click', function(){ select(names[i]); });
+    t.addEventListener('keydown', function(e){
+      var k = e.key, j = null;
+      if (k === 'ArrowDown' || k === 'ArrowRight') j = (i + 1) % tabs.length;
+      if (k === 'ArrowUp' || k === 'ArrowLeft') j = (i - 1 + tabs.length) % tabs.length;
+      if (j !== null){ e.preventDefault(); select(names[j]); tabs[j].focus(); }
+    });
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.target.closest('input,textarea') || e.metaKey || e.ctrlKey || e.altKey) return;
+    var n = +e.key; if (n >= 1 && n <= 5){
+      var r = app.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0) select(names[n - 1]);
+    }
+  });
+
+  /* remind */
+  document.getElementById('remind').addEventListener('click', function(){
+    this.disabled = true; this.textContent = 'Reminded Chidi and Tunde'; toast('Reminder sent to 2 people');
+  });
+
+  /* typing helper */
+  function type(el, text, cb){
+    if (reduce){ el.innerHTML = text; cb && cb(); return; }
+    var plain = text.replace(/<[^>]+>/g,''), i = 0;
+    el.innerHTML = '<span class="caret"></span>';
+    (function step(){
+      i += Math.max(1, Math.round(Math.random() * 3));
+      if (i >= plain.length){ el.innerHTML = text; cb && cb(); return; }
+      el.innerHTML = plain.slice(0, i) + '<span class="caret"></span>';
+      setTimeout(step, 14);
+    })();
+  }
+
+  /* handoff */
+  document.getElementById('handoff').addEventListener('click', function(){
+    var b = this; b.disabled = true;
+    select('ai');
+    addMsg('me', 'Draft the cover note for the FCT logistics MoU.');
+    setTimeout(function(){
+      addMsg('ai', '<b>Draft ready for your approval.</b> “Following legal\'s review of clause 7, we\'re ready to sign. We propose Thursday 13 November at 11:00, at your offices.” I\'ve attached it to the task and left it unsent.');
+    }, 350);
+  });
+
+  /* AI chat */
+  var answers = [
+    '<b>Operations.</b> It has the only overdue task (the office lease, 2 days over) and the one blocked task, the generator quote. Amara is on both; the lease is ready to sign today.',
+    '<b>One thing: a date from the Ministry\'s signatory.</b> Legal cleared clause 7 yesterday. Femi has asked twice; it\'s been open 3 days. Want me to draft a follow-up?',
+    '<b>15 of 17 filed.</b> Lease terms agreed, Q4 forecast checked, MoU clause 7 cleared. Blocked: the generator quote and the Ministry date. Chidi and Tunde haven\'t filed.'
+  ];
+  var questions = ['Which team is falling behind?', 'What\'s blocking the MoU?', 'Summarise yesterday\'s reports'];
+  var chat = document.getElementById('chat');
+  function addMsg(who, html){
+    var m = document.createElement('div');
+    m.className = 'msg msg--' + who;
+    if (who === 'ai'){ m.innerHTML = '<span class="msg__from">AI ANALYST</span><span></span>'; chat.appendChild(m); type(m.lastChild, html); }
+    else { m.textContent = html; chat.appendChild(m); }
+    while (chat.children.length > 5) chat.removeChild(chat.firstChild);
+  }
+  document.querySelectorAll('.prompt').forEach(function(p){
+    p.addEventListener('click', function(){
+      var q = +p.dataset.q; p.disabled = true;
+      addMsg('me', questions[q]);
+      setTimeout(function(){ addMsg('ai', answers[q]); }, 350);
+    });
+  });
+
+  /* ---------- the day: live clock + timeline ---------- */
+  var jobs = [[420,'billing check at 07:00'],[480,'the overdue sweep at 08:00'],[485,'the morning digest at 08:05'],[960,'the afternoon close at 16:00'],[1085,'the report nudge at 18:05']];
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  function tick(){
+    var t = wat(), now = t.h * 60 + t.m;
+    document.getElementById('clock').textContent = ('0'+t.h).slice(-2) + ':' + ('0'+t.m).slice(-2);
+    var nxt = jobs.filter(function(j){ return j[0] > now; })[0] || jobs[0];
+    var mins = (nxt[0] - now + 1440) % 1440;
+    document.getElementById('next').textContent = 'Next: ' + nxt[1] + ', in ' + (mins >= 60 ? Math.floor(mins/60) + 'h ' : '') + (mins % 60) + 'm';
+    var last = -1; steps.forEach(function(s, i){ if (+s.dataset.min <= now) last = i; });
+    steps.forEach(function(s, i){ s.classList.toggle('is-now', i === last); });
   }
   tick(); setInterval(tick, 20000);
 
-  // ---- Live task: tick it and it moves to Done ----
-  var task = document.getElementById('live-task'), check = document.getElementById('live-check'), meta = document.getElementById('live-meta'), done = document.getElementById('live-done');
-  if (task) {
-    var original = meta.textContent;
-    function toggle() {
-      var on = !task.classList.contains('task--done');
-      task.classList.toggle('task--done', on);
-      check.setAttribute('aria-pressed', String(on));
-      var t = watParts();
-      meta.textContent = on ? 'Closed by you at ' + pad(t.h) + ':' + pad(t.m) + ' · in tonight’s EOD report' : original;
-      done.textContent = on ? 'Reopen' : 'Mark done';
-    }
-    check.addEventListener('click', toggle); done.addEventListener('click', toggle);
+  var fill = document.getElementById('stepsFill'), list = document.getElementById('steps');
+  function progress(){
+    var r = list.getBoundingClientRect(), mid = innerHeight * 0.55;
+    var h = Math.max(0, Math.min(r.height - 24, mid - r.top));
+    fill.style.height = h + 'px';
+    steps.forEach(function(s){ s.classList.toggle('is-on', s.getBoundingClientRect().top + 14 < mid); });
   }
+  progress(); window.addEventListener('scroll', progress, {passive:true}); window.addEventListener('resize', progress);
 
-  // ---- Nav state + scroll progress ----
-  var nav = document.getElementById('nav'), bar = document.getElementById('progress');
-  function onScroll() {
-    nav.classList.toggle('is-scrolled', window.scrollY > 24);
-    var h = document.documentElement, max = h.scrollHeight - h.clientHeight;
-    bar.style.transform = 'scaleX(' + (max > 0 ? h.scrollTop / max : 0) + ')';
-  }
-  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  /* ---------- hero photo drift ---------- */
+  var heroImg = document.querySelector('.hero__photo img');
+  if (!reduce) window.addEventListener('scroll', function(){
+    var y = Math.min(window.scrollY, 900);
+    heroImg.style.transform = 'scale(' + (1.04 + y / 9000) + ') translateY(' + (y * 0.12) + 'px)';
+  }, {passive:true});
 
-  // ---- Subtle tilt on the hero panel (fine pointers only) ----
-  var tilt = document.getElementById('tilt');
-  if (tilt && window.matchMedia('(pointer:fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    var stage = tilt.parentElement, raf = null;
-    stage.addEventListener('mousemove', function (e) {
-      var r = stage.getBoundingClientRect();
-      var x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(function () {
-        tilt.style.transform = 'rotateY(' + (x * 7) + 'deg) rotateX(' + (-y * 7) + 'deg)';
-      });
+  /* ---------- offline queue ---------- */
+  var queue = document.getElementById('queue'), line = document.getElementById('offlineLine'), sent = false;
+  var qio = io && new IntersectionObserver(function(es){
+    if (!es[0].isIntersecting || sent) return;
+    sent = true;
+    setTimeout(function(){
+      queue.textContent = 'Sent'; queue.classList.add('is-sent');
+      line.textContent = 'Back online at 14:12. Sent in order, nothing lost.';
+      document.querySelectorAll('.sig i').forEach(function(i){ i.style.background = 'var(--teal)'; });
+    }, 2600);
+  }, {threshold:.6});
+  qio && qio.observe(document.querySelector('.here__photo'));
+
+  /* ---------- structure toggle ---------- */
+  var org = document.getElementById('org');
+  document.querySelectorAll('.seg button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var mode = b.dataset.mode;
+      document.querySelectorAll('.seg button').forEach(function(x){ x.setAttribute('aria-pressed', x === b); });
+      org.dataset.mode = mode;
+      document.getElementById('orgTitle').textContent = mode === 'group' ? 'ABION Group' : 'ABION Industries';
+      document.getElementById('orgSub').textContent = mode === 'group' ? 'Group · 3 companies · 30 people' : 'Company · 17 people';
     });
-    stage.addEventListener('mouseleave', function () {
-      cancelAnimationFrame(raf);
-      tilt.style.transform = 'rotateY(0deg) rotateX(0deg)';
-    });
-  }
+  });
 
-  // ---- Entrances, once ----
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
-    document.querySelectorAll('[data-reveal]').forEach(function (el) { io.observe(el); });
-  } else {
-    document.querySelectorAll('[data-reveal]').forEach(function (el) { el.classList.add('is-in'); });
+  /* ---------- pricing calculator ---------- */
+  var range = document.getElementById('team'), out = document.getElementById('teamOut');
+  function naira(n){ return '₦' + n.toLocaleString('en-NG'); }
+  function calc(){
+    var n = +range.value;
+    out.textContent = n;
+    range.style.setProperty('--p', ((n - 1) / 99 * 100) + '%');
+    var starter = 15000 + 1000 * n, pro = 50000 + 1500 * n;
+    document.getElementById('amtStarter').innerHTML = (n <= 25 ? naira(starter) : '—') + ' <small>/ month</small>';
+    document.getElementById('amtPro').innerHTML = naira(pro) + ' <small>/ month</small>';
+    var best = n <= 5 ? 'free' : n <= 25 ? 'starter' : 'pro';
+    document.querySelectorAll('.plan').forEach(function(p){
+      var k = p.dataset.plan;
+      var fits = k === 'free' ? n <= 5 : k === 'starter' ? n <= 25 : true;
+      p.classList.toggle('is-best', k === best);
+      p.classList.toggle('is-out', !fits);
+      var h = p.querySelector('h3'); var tag = h.querySelector('.tag');
+      if (k === best && !tag){ h.insertAdjacentHTML('beforeend', '<span class="tag">fits</span>'); }
+      if (k !== best && tag) tag.remove();
+    });
+    var price = best === 'free' ? 0 : best === 'starter' ? starter : pro;
+    document.getElementById('planNote').textContent = 'For ' + n + (n === 1 ? ' person, ' : ' people, ') +
+      (best === 'free' ? 'Free fits: ₦0 a month.' : (best === 'starter' ? 'Starter' : 'Pro') + ' fits: ' + naira(price) + ' a month.');
   }
+  range.addEventListener('input', calc); calc();
 })();
 </script>
 </body>
