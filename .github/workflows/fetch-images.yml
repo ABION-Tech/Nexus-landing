@@ -1,0 +1,36 @@
+# Downloads the generated images listed in img/sources.txt, converts them to
+# web-sized WebP, and commits them, so the site serves them from its own domain.
+name: Fetch images
+on:
+  push:
+    paths: ['img/sources.txt']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q pillow
+      - run: |
+          set -e
+          while read -r name url; do
+            [ -z "$name" ] && continue
+            [ -f "img/$name.webp" ] && continue
+            curl -sSfL -o "/tmp/$name.png" "$url"
+            python3 - "$name" <<'PY'
+          import sys
+          from PIL import Image
+          n = sys.argv[1]
+          im = Image.open(f"/tmp/{n}.png").convert("RGB")
+          for w, suffix in ((1800, ""), (900, "-sm")):
+              r = im.resize((w, round(im.height * w / im.width)), Image.LANCZOS) if im.width > w else im
+              r.save(f"img/{n}{suffix}.webp", "WEBP", quality=80, method=6)
+          PY
+          done < img/sources.txt
+      - run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add img
+          git diff --cached --quiet || (git commit -m "Add fetched images [skip ci]" && git push)
