@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="/img/abuja-dawn.webp" fetchpriority="high">
-<script>document.documentElement.classList.add('js')</script>
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('nexus-landing-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
 <style>
 :root{
   --bg:#f6f5f1;
@@ -93,6 +93,11 @@ p{margin:0}
 .nav__links a{text-decoration:none;color:var(--ink-2);font-size:15px;font-weight:500}
 .nav__links a:hover{color:var(--ink)}
 .nav__right{margin-left:auto;display:flex;align-items:center;gap:18px}
+.theme-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line-2);background:var(--glass);display:grid;place-items:center;color:var(--ink);backdrop-filter:blur(8px)}
+.theme-btn svg{width:17px;height:17px}
+.theme-btn .moon{display:none}
+:root[data-theme="dark"] .theme-btn .sun{display:none}:root[data-theme="dark"] .theme-btn .moon{display:block}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .theme-btn .sun{display:none}:root:not([data-theme="light"]) .theme-btn .moon{display:block}}
 .nav__right .signin{text-decoration:none;font-weight:600;font-size:15px}
 .nav .btn{height:40px;padding:0 18px;font-size:15px}
 
@@ -240,7 +245,7 @@ section{position:relative}
 .step h3{font-size:22px;letter-spacing:-.02em;margin-top:12px}
 .step p{margin-top:8px;color:var(--ink-2);max-width:46ch}
 .step figure{margin:22px 0 0}
-.step figure img{width:100%;aspect-ratio:16/10;height:auto;object-fit:cover;border-radius:var(--r);background:var(--chip-bg)}
+
 .step figcaption{margin-top:10px;font-size:14px;color:var(--muted)}
 .inline-ui{margin-top:20px;background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 40px -30px rgba(13,13,20,.35);font-size:14px;overflow:hidden;max-width:470px}
 .inline-ui__h{display:flex;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--line);font-weight:600;font-size:13px}
@@ -284,7 +289,7 @@ section{position:relative}
 /* made for here */
 .here{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:stretch}
 .here__photo{display:flex;flex-direction:column;gap:12px}
-.here__photo img{width:100%;flex:1;min-height:520px;object-fit:cover;object-position:50% 35%;border-radius:22px;background:var(--chip-bg)}
+
 .here__photo .offline{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;font-size:14px;box-shadow:0 16px 40px -20px rgba(0,0,0,.4)}
 .here__photo .offline b{font-weight:600}
 .here__photo .offline span{color:var(--muted);font-size:13px;display:block}
@@ -310,8 +315,8 @@ section{position:relative}
 .seg{display:inline-flex;margin-top:32px;background:var(--chip-bg);border-radius:999px;padding:4px}
 .seg button{border:0;background:none;padding:9px 18px;border-radius:999px;font-weight:600;font-size:15px;color:var(--ink-2);transition:background .2s,color .2s,box-shadow .2s}
 .seg button[aria-pressed="true"]{background:var(--paper);color:var(--ink);box-shadow:0 2px 8px -3px rgba(13,13,20,.25)}
-.struct__photo{border-radius:20px;overflow:hidden;margin-top:36px;aspect-ratio:4/3;position:relative}
-.struct__photo img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.struct__photo{margin-top:36px}
+.struct__photo .pic{aspect-ratio:4/3}
 .org{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,3vw,34px);box-shadow:0 30px 60px -40px rgba(13,13,20,.35)}
 .org__top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;gap:12px}
 .org__top b{font-family:var(--display);font-size:22px;letter-spacing:-.02em}
@@ -407,22 +412,58 @@ footer{background:#0d0d14;color:#b9b8c8;padding:56px 0 40px;font-size:15px}
 .foot__base{margin-top:48px;padding-top:22px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:#a2a1b6;font-size:13px}
 
 
+/* Dark theme: follows the device unless the visitor picks one with the switch in the nav. */
 @media (prefers-color-scheme:dark){
-  :root{
-    --bg:#08080f;--bg-rgb:8,8,15;--paper:#12121d;--ink:#f3f3fa;--ink-2:#c9c9dc;--muted:#a3a3bd;
+  :root:not([data-theme="light"]){--bg:#08080f;--bg-rgb:8,8,15;--paper:#12121d;--ink:#f3f3fa;--ink-2:#c9c9dc;--muted:#a3a3bd;
     --line:rgba(255,255,255,.09);--line-2:rgba(255,255,255,.18);
     --accent:#8a82ff;--accent-soft:rgba(124,114,255,.16);--teal:#2fd5a6;--teal-soft:rgba(47,213,166,.14);
     --amber:#f2c06a;--amber-soft:rgba(242,192,106,.14);--red:#ff8d9b;--red-soft:rgba(255,92,112,.14);
     --logo-us:#00d4a0;--glass:rgba(18,18,29,.78);--chip-bg:#1b1b2a;--tint:#171724;--track:#24243a;
-    --btn-dark:#f3f3fa;--btn-dark-ink:#0b0b14;
-  }
-  .hero__photo img{filter:brightness(.62) saturate(.9)}
-  .app{border-color:rgba(255,255,255,.14)}
-  .calc{background:var(--paper);border:1px solid var(--line-2)}
-  .close::before{background:linear-gradient(180deg,rgba(8,8,15,.35) 0%,rgba(8,8,15,.45) 45%,rgba(8,8,15,.9) 100%)}
-  footer{background:#05050b;border-top:1px solid var(--line)}
-  .nav.is-stuck{background:rgba(8,8,15,.82)}
-  .hero h1 em{background:linear-gradient(100deg,#8a82ff 10%,#2fd5a6 90%);-webkit-background-clip:text;background-clip:text}
+    --btn-dark:#f3f3fa;--btn-dark-ink:#0b0b14;}
+  :root:not([data-theme="light"]) .hero__photo img{filter:brightness(.62) saturate(.9)}
+  :root:not([data-theme="light"]) .app{border-color:rgba(255,255,255,.14)}
+  :root:not([data-theme="light"]) .calc{background:var(--paper);border:1px solid var(--line-2)}
+  :root:not([data-theme="light"]) .close::before{background:linear-gradient(180deg,rgba(8,8,15,.35) 0%,rgba(8,8,15,.45) 45%,rgba(8,8,15,.9) 100%)}
+  :root:not([data-theme="light"]) footer{background:#05050b;border-top:1px solid var(--line)}
+  :root:not([data-theme="light"]) .nav.is-stuck{background:rgba(8,8,15,.82)}
+  :root:not([data-theme="light"]) .hero h1 em{background:linear-gradient(100deg,#8a82ff 10%,#2fd5a6 90%);-webkit-background-clip:text;background-clip:text}
+}
+:root[data-theme="dark"]{--bg:#08080f;--bg-rgb:8,8,15;--paper:#12121d;--ink:#f3f3fa;--ink-2:#c9c9dc;--muted:#a3a3bd;
+  --line:rgba(255,255,255,.09);--line-2:rgba(255,255,255,.18);
+  --accent:#8a82ff;--accent-soft:rgba(124,114,255,.16);--teal:#2fd5a6;--teal-soft:rgba(47,213,166,.14);
+  --amber:#f2c06a;--amber-soft:rgba(242,192,106,.14);--red:#ff8d9b;--red-soft:rgba(255,92,112,.14);
+  --logo-us:#00d4a0;--glass:rgba(18,18,29,.78);--chip-bg:#1b1b2a;--tint:#171724;--track:#24243a;
+  --btn-dark:#f3f3fa;--btn-dark-ink:#0b0b14;}
+:root[data-theme="dark"] .hero__photo img{filter:brightness(.62) saturate(.9)}
+:root[data-theme="dark"] .app{border-color:rgba(255,255,255,.14)}
+:root[data-theme="dark"] .calc{background:var(--paper);border:1px solid var(--line-2)}
+:root[data-theme="dark"] .close::before{background:linear-gradient(180deg,rgba(8,8,15,.35) 0%,rgba(8,8,15,.45) 45%,rgba(8,8,15,.9) 100%)}
+:root[data-theme="dark"] footer{background:#05050b;border-top:1px solid var(--line)}
+:root[data-theme="dark"] .nav.is-stuck{background:rgba(8,8,15,.82)}
+:root[data-theme="dark"] .hero h1 em{background:linear-gradient(100deg,#8a82ff 10%,#2fd5a6 90%);-webkit-background-clip:text;background-clip:text}
+
+
+
+/* ---------- photos that move as you scroll ----------
+   Each photo sits in a .pic frame. As the frame scrolls into view it
+   opens from a narrow inset to full size (clip-path), and the photo
+   inside drifts more slowly than the page (parallax). */
+.pic{position:relative;overflow:hidden;border-radius:var(--r);background:var(--chip-bg);aspect-ratio:16/10;isolation:isolate}
+.pic--tall{flex:1;min-height:520px;aspect-ratio:auto;border-radius:22px}
+.pic img{position:absolute;left:0;top:-9%;width:100%;height:118%;object-fit:cover;will-change:transform;transform:translate3d(0,var(--py,0px),0) scale(var(--ps,1.06))}
+.pic--tall img{object-position:50% 35%}
+.struct__photo .pic img{object-position:50% 30%}
+.js .pic{clip-path:inset(10% 8% 10% 8% round 26px);transition:clip-path 1.3s var(--ease)}
+.js .is-in .pic,.js .pic.is-in{clip-path:inset(0 0 0 0 round var(--r))}
+.js .is-in .pic--tall,.js .pic--tall.is-in{clip-path:inset(0 0 0 0 round 22px)}
+.js .pic img{--ps:1.22;transition:none}
+.js .is-in .pic img,.js .pic.is-in img{--ps:1.06}
+.pic img{transition:transform .6s var(--ease)}
+.close img{will-change:transform;transform:translate3d(0,var(--py,0px),0) scale(var(--ps,1.12))}
+.hero__photo img{will-change:transform}
+@media (prefers-reduced-motion:reduce){
+  .js .pic{clip-path:none}
+  .pic img,.close img{transform:none!important}
 }
 
 /* reveal */
@@ -443,7 +484,7 @@ footer{background:#0d0d14;color:#b9b8c8;padding:56px 0 40px;font-size:15px}
   .sec__head,.day,.here,.struct,.price,.faq{grid-template-columns:1fr}
   .sec__head .lede{justify-self:start}
   .day__sticky{position:static}
-  .here__photo img{min-height:420px}
+  .pic--tall{min-height:420px}
   .trust{grid-template-columns:1fr}
   .trust div,.trust div+div{padding:24px 0;border-left:0}
   .close__in{grid-template-columns:1fr}
@@ -510,6 +551,7 @@ footer{background:#0d0d14;color:#b9b8c8;padding:56px 0 40px;font-size:15px}
       <a href="#questions">Questions</a>
     </nav>
     <div class="nav__right">
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch between light and dark"><svg class="sun" viewBox="0 0 16 16"><use href="#i-sun"/></svg><svg class="moon" viewBox="0 0 16 16"><path d="M13.5 9.6A5.6 5.6 0 016.4 2.5a5.6 5.6 0 107.1 7.1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
       <a class="signin" href="https://app.nexusabion.com">Sign in</a>
       <a class="btn btn--dark" href="#access">Request access</a>
     </div>
@@ -673,7 +715,7 @@ footer{background:#0d0d14;color:#b9b8c8;padding:56px 0 40px;font-size:15px}
         <h3>Everyone gets their digest.</h3>
         <p>What's open, what's due today and what's stuck, written for each person and sent to their phone and inbox.</p>
         <figure data-reveal>
-          <img src="/img/office-morning-sm.webp" srcset="/img/office-morning-sm.webp 900w, /img/office-morning.webp 1536w" sizes="(max-width:860px) 92vw, 600px" alt="A manager at her desk in the morning, reading her phone beside her laptop and coffee." loading="lazy" style="object-position:50% 30%">
+          <div class="pic"><img data-parallax src="/img/office-morning-sm.webp" srcset="/img/office-morning-sm.webp 900w, /img/office-morning.webp 1536w" sizes="(max-width:860px) 92vw, 600px" alt="A manager at her desk in the morning, reading her phone beside her laptop and coffee." loading="lazy" style="object-position:50% 30%"></div>
           <figcaption>08:07 · the day's plan, before the first meeting</figcaption>
         </figure>
       </li>
@@ -696,7 +738,7 @@ footer{background:#0d0d14;color:#b9b8c8;padding:56px 0 40px;font-size:15px}
         <h3>Reports come in.</h3>
         <p>Each person files three lines: done, blocked, tomorrow. Whoever hasn't filed gets a nudge. Leaders read them all in one place.</p>
         <figure data-reveal>
-          <img src="/img/eod-note-sm.webp" srcset="/img/eod-note-sm.webp 900w, /img/eod-note.webp 1536w" sizes="(max-width:860px) 92vw, 600px" alt="A finance lead typing her end-of-day note on a laptop in late-afternoon light." loading="lazy" style="object-position:50% 35%">
+          <div class="pic"><img data-parallax src="/img/eod-note-sm.webp" srcset="/img/eod-note-sm.webp 900w, /img/eod-note.webp 1536w" sizes="(max-width:860px) 92vw, 600px" alt="A finance lead typing her end-of-day note on a laptop in late-afternoon light." loading="lazy" style="object-position:50% 35%"></div>
           <figcaption>17:48 · done, blocked, tomorrow. Two minutes.</figcaption>
         </figure>
       </li>
@@ -798,7 +840,7 @@ footer{background:#0d0d14;color:#b9b8c8;padding:56px 0 40px;font-size:15px}
 <section class="sec" aria-labelledby="here-title">
   <div class="wrap here">
     <div class="here__photo" data-reveal>
-      <img src="/img/field-officer-sm.webp" srcset="/img/field-officer-sm.webp 900w, /img/field-officer.webp 1536w" sizes="(max-width:860px) 92vw, 600px" alt="A field officer standing beside a pickup truck on a road outside Abuja, checking his phone." loading="lazy">
+      <div class="pic pic--tall"><img data-parallax src="/img/field-officer-sm.webp" srcset="/img/field-officer-sm.webp 900w, /img/field-officer.webp 1536w" sizes="(max-width:860px) 92vw, 600px" alt="A field officer standing beside a pickup truck on a road outside Abuja, checking his phone." loading="lazy"></div>
       <div class="offline" aria-live="polite">
         <span class="sig" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
         <span><b>Site visit report saved</b><span id="offlineLine">No signal. Will send when you're back online.</span></span>
@@ -831,7 +873,7 @@ footer{background:#0d0d14;color:#b9b8c8;padding:56px 0 40px;font-size:15px}
         <button aria-pressed="false" data-mode="group">A group</button>
       </div>
       <div class="struct__photo" data-reveal style="--i:4">
-        <img src="/img/team-table-sm.webp" srcset="/img/team-table-sm.webp 900w, /img/team-table.webp 1536w" sizes="(max-width:860px) 92vw, 520px" alt="A team gathered around a table, reviewing work on a laptop together." loading="lazy">
+        <div class="pic"><img data-parallax src="/img/team-table-sm.webp" srcset="/img/team-table-sm.webp 900w, /img/team-table.webp 1536w" sizes="(max-width:860px) 92vw, 520px" alt="A team gathered around a table, reviewing work on a laptop together." loading="lazy"></div>
       </div>
     </div>
     <div class="org" id="org" data-mode="single" data-reveal style="--i:2">
@@ -915,7 +957,7 @@ footer{background:#0d0d14;color:#b9b8c8;padding:56px 0 40px;font-size:15px}
 
 <!-- ============ CLOSE ============ -->
 <section class="close" id="access" aria-labelledby="close-title">
-  <img src="/img/dusk-office-sm.webp" srcset="/img/dusk-office-sm.webp 900w, /img/dusk-office.webp 1800w" sizes="100vw" alt="An office desk at dusk, with a closed laptop and Abuja's evening lights through the window." loading="lazy">
+  <img data-parallax="close" src="/img/dusk-office-sm.webp" srcset="/img/dusk-office-sm.webp 900w, /img/dusk-office.webp 1800w" sizes="100vw" alt="An office desk at dusk, with a closed laptop and Abuja's evening lights through the window." loading="lazy">
   <div class="wrap close__in">
     <div>
       <h2 id="close-title" data-reveal>See you at 08:05.</h2>
@@ -1144,6 +1186,46 @@ footer{background:#0d0d14;color:#b9b8c8;padding:56px 0 40px;font-size:15px}
     var y = Math.min(window.scrollY, 900);
     heroImg.style.transform = 'scale(' + (1.04 + y / 9000) + ') translateY(' + (y * 0.12) + 'px)';
   }, {passive:true});
+
+
+  /* ---------- light / dark switch ---------- */
+  var root = document.documentElement, mq = window.matchMedia('(prefers-color-scheme: dark)');
+  function isDark(){ return root.dataset.theme ? root.dataset.theme === 'dark' : mq.matches; }
+  function syncMeta(){ document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){ m.setAttribute('content', isDark() ? '#08080f' : '#f6f5f1'); m.removeAttribute('media'); }); }
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    var next = isDark() ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try { localStorage.setItem('nexus-landing-theme', next); } catch (e) {}
+    syncMeta();
+  });
+  if (root.dataset.theme) syncMeta();
+
+  /* ---------- photos drift as you scroll ---------- */
+  var pics = Array.prototype.slice.call(document.querySelectorAll('img[data-parallax]'));
+  var frames = document.querySelectorAll('.pic');
+  frames.forEach(function(f){ io ? io.observe(f) : f.classList.add('is-in'); });
+  var ticking = false;
+  function drift(){
+    ticking = false;
+    var vh = innerHeight;
+    pics.forEach(function(img){
+      var box = (img.dataset.parallax === 'close' ? img.parentElement : img.parentElement).getBoundingClientRect();
+      if (box.bottom < -100 || box.top > vh + 100) return;
+      var p = (box.top + box.height / 2 - vh / 2) / (vh / 2 + box.height / 2); /* -1 (leaving top) … 1 (entering bottom) */
+      p = Math.max(-1, Math.min(1, p));
+      if (img.dataset.parallax === 'close'){
+        img.style.setProperty('--py', (p * 60).toFixed(1) + 'px');
+        img.style.setProperty('--ps', (1.04 + Math.max(0, p) * 0.12).toFixed(3));
+      } else {
+        img.style.setProperty('--py', (p * -7).toFixed(2) + '%');
+      }
+    });
+  }
+  if (!reduce){
+    window.addEventListener('scroll', function(){ if (!ticking){ ticking = true; requestAnimationFrame(drift); } }, {passive:true});
+    window.addEventListener('resize', drift);
+    drift();
+  }
 
   /* ---------- offline queue ---------- */
   var queue = document.getElementById('queue'), line = document.getElementById('offlineLine'), sent = false;
